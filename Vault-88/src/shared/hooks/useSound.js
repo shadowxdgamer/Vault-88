@@ -108,6 +108,16 @@ export const useSound = () => {
     }
   };
 
+  const ensureBgMusicPlaying = () => {
+    try {
+      if (soundInstances.bgMusic && soundInstances.bgMusic.state() === 'loaded' && !soundInstances.bgMusic.playing()) {
+        soundInstances.bgMusic.play();
+      }
+    } catch (error) {
+      console.error('Error ensuring background music:', error);
+    }
+  };
+
   const pauseBgMusic = () => {
     if (soundInstances.bgMusic) {
       soundInstances.bgMusic.pause();
@@ -140,6 +150,7 @@ export const useSound = () => {
     playUnlock: () => playSound('unlock'),
     playWrong: () => playSound('wrong'),
     playBgMusic,
+    ensureBgMusicPlaying,
     pauseBgMusic,
     stopBgMusic,
     setBgMusicVolume,

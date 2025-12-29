@@ -1,9 +1,15 @@
 import { MenuButton } from './components/MenuButton';
 import { PlayButton } from './components/PlayButton';
+import { useSound } from '../../shared/hooks/useSound';
 import './Menu.css';
 
 export function MainMenu({ onNavigate }) {
+  const { ensureBgMusicPlaying } = useSound();
+
   const handleNavigation = (screen) => {
+    // Ensure background music starts on first user interaction
+    ensureBgMusicPlaying();
+    
     if (screen === 'support') {
       window.open('https://buymeacoffee.com/shadowxdgamer', '_blank');
     } else if (screen === 'source') {

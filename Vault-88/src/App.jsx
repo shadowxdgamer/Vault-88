@@ -13,17 +13,6 @@ import './App.css';
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState('menu');
   const [selectedDifficulty, setSelectedDifficulty] = useState(GAME_MODES.EASY);
-  const { playBgMusic } = useSound();
-
-  // Start background music on mount
-  useEffect(() => {
-    // Small delay to ensure page is ready
-    const timer = setTimeout(() => {
-      playBgMusic();
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const renderScreen = () => {
     switch (currentScreen) {
