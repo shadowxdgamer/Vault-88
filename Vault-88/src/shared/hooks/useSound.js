@@ -7,8 +7,7 @@ const SOUNDS = {
   hover: '/sfx/hover.wav',
   unlock: '/sfx/unlock.wav',
   wrong: '/sfx/wrong.wav',
-  correct: '/sfx/correct.wav',
-  bgMusic: '/bg-music/track1.wav',
+  bgMusic: '/bg-music/track1.mp3',
 };
 
 // Create Howl instances
@@ -17,7 +16,6 @@ const soundInstances = {
   hover: null,
   unlock: null,
   wrong: null,
-  correct: null,
   bgMusic: null,
 };
 
@@ -52,13 +50,6 @@ const initSounds = () => {
 
   soundInstances.wrong = new Howl({
     src: [SOUNDS.wrong],
-    volume: 0.7,
-    preload: true,
-    html5: false,
-  });
-
-  soundInstances.correct = new Howl({
-    src: [SOUNDS.correct],
     volume: 0.7,
     preload: true,
     html5: false,
@@ -132,7 +123,7 @@ export const useSound = () => {
   };
 
   const setSfxVolume = (volume) => {
-    ['click', 'hover', 'unlock', 'wrong', 'correct'].forEach(soundName => {
+    ['click', 'hover', 'unlock', 'wrong'].forEach(soundName => {
       if (soundInstances[soundName]) {
         soundInstances[soundName].volume(volume);
       }
@@ -144,7 +135,6 @@ export const useSound = () => {
     playHover: () => playSound('hover'),
     playUnlock: () => playSound('unlock'),
     playWrong: () => playSound('wrong'),
-    playCorrect: () => playSound('correct'),
     playBgMusic,
     pauseBgMusic,
     stopBgMusic,

@@ -5,20 +5,17 @@ import '../Game.css';
 import '../Pause.css';
 
 export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause }) {
-  const { playUnlock, playCorrect, playWrong, playClick } = useSound();
+  const { playUnlock, playWrong, playClick } = useSound();
 
   const handleUnlock = () => {
-    playUnlock();
     const result = onUnlock();
     
-    // Play correct or wrong sound after unlock sound
-    setTimeout(() => {
-      if (result) {
-        playCorrect();
-      } else {
-        playWrong();
-      }
-    }, 200);
+    // Play unlock sound for correct, wrong sound for incorrect
+    if (result) {
+      playUnlock();
+    } else {
+      playWrong();
+    }
   };
 
   const handleBack = () => {
