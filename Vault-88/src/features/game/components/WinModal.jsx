@@ -2,9 +2,9 @@ import { useSound } from '../../../shared/hooks/useSound';
 import { formatTime, getScoreBreakdown } from '../utils/scoreCalculator';
 import './WinModal.css';
 
-export function WinModal({ score, time, wrongAttempts, baseScore, isNewHighScore, highScore, onPlayAgain, onExit }) {
+export function WinModal({ score, time, wrongAttempts, hintsUsed, baseScore, isNewHighScore, highScore, onPlayAgain, onExit }) {
   const { playClick } = useSound();
-  const breakdown = getScoreBreakdown(baseScore, wrongAttempts, time);
+  const breakdown = getScoreBreakdown(baseScore, wrongAttempts, time, hintsUsed);
 
   const handlePlayAgain = () => {
     playClick();
@@ -56,6 +56,12 @@ export function WinModal({ score, time, wrongAttempts, baseScore, isNewHighScore
             <div className="breakdown-row">
               <span className="breakdown-label">Wrong Attempts ({wrongAttempts})</span>
               <span className="breakdown-value negative">-{breakdown.attemptPenalty}</span>
+            </div>
+          )}
+          {breakdown.hintPenalty > 0 && (
+            <div className="breakdown-row">
+              <span className="breakdown-label">Hints Used ({hintsUsed})</span>
+              <span className="breakdown-value negative">-{breakdown.hintPenalty}</span>
             </div>
           )}
           {breakdown.timeBonus > 0 && (

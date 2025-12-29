@@ -10,7 +10,7 @@ import { saveHighScore, getHighScore } from './utils/highScoreManager';
 export function GameScreen({ onExit, difficulty }) {
   const digitCount = MODE_CONFIG[difficulty].digits;
   const baseScore = MODE_CONFIG[difficulty].baseScore;
-  const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, changeDigit, checkCode, resetGame } = useGameLogic(digitCount);
+  const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, revealedDigits, hintsUsed, secretCode, changeDigit, checkCode, resetGame, revealHint } = useGameLogic(digitCount);
   const [message, setMessage] = useState('');
   const [showWinModal, setShowWinModal] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -20,8 +20,8 @@ export function GameScreen({ onExit, difficulty }) {
 
   // Calculate current score in real-time
   const currentScore = useMemo(() => {
-    return calculateScore(baseScore, wrongAttempts, elapsedTime);
-  }, [baseScore, wrongAttempts, elapsedTime]);
+    return calculateScore(baseScore, wrongAttempts, elapsedTime, hintsUsed);
+  }, [baseScore, wrongAttempts, elapsedTime, hintsUsed]);
 
   const handleDigitChange = (index) => {
     changeDigit(index);
@@ -32,7 +32,7 @@ export function GameScreen({ onExit, difficulty }) {
     const won = checkCode();
     
     if (won) {
-      const score = calculateScore(baseScore, wrongAttempts, elapsedTime);
+      const score = calculateScore(baseScore, wrongAttempts, elapsedTime, hintsUsed);
       setFinalScore(score);
       
       // Check and save high score
@@ -71,6 +71,13 @@ export function GameScreen({ onExit, difficulty }) {
     resetGame();
   };
 
+  const handleRequestHint = () => {
+    const success = revealHint();
+    if (!success) {
+      setMessage('No more hints available!');
+    }
+  };
+
   return (
     <>
       <GameBoard
@@ -84,6 +91,10 @@ export function GameScreen({ onExit, difficulty }) {
         onPause={handlePause}
         score={currentScore}
         time={elapsedTime}
+        revealedDigits={revealedDigits}
+        hintsUsed={hintsUsed}
+        onRequestHint={handleRequestHint}
+        secretCode={secretCode}
       />
 
       {/* Pause Menu */}
@@ -101,6 +112,7 @@ export function GameScreen({ onExit, difficulty }) {
           score={finalScore}
           time={elapsedTime}
           wrongAttempts={wrongAttempts}
+          hintsUsed={hintsUsed}
           baseScore={baseScore}
           isNewHighScore={isNewHighScore}
           highScore={highScore}

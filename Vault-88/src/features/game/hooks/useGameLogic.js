@@ -10,6 +10,8 @@ export function useGameLogic(digitCount = 3) {
   const [wrongAttempts, setWrongAttempts] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [revealedDigits, setRevealedDigits] = useState([]);
+  const [hintsUsed, setHintsUsed] = useState(0);
 
   // Update game when digit count changes
   useEffect(() => {
@@ -22,6 +24,8 @@ export function useGameLogic(digitCount = 3) {
     setWrongAttempts(0);
     setStartTime(Date.now());
     setElapsedTime(0);
+    setRevealedDigits([]);
+    setHintsUsed(0);
   }, [digitCount]);
 
   // Timer effect
@@ -52,6 +56,29 @@ export function useGameLogic(digitCount = 3) {
     return false;
   };
 
+  const revealHint = () => {
+    if (hintsUsed >= 2) return false; // Max 2 hints per game
+    
+    // Find unrevealed digit positions
+    const unrevealedPositions = [];
+    for (let i = 0; i < digitCount; i++) {
+      if (!revealedDigits.includes(i)) {
+        unrevealedPositions.push(i);
+      }
+    }
+    
+    if (unrevealedPositions.length === 0) return false;
+    
+    // Pick random unrevealed position
+    const randomIndex = Math.floor(Math.random() * unrevealedPositions.length);
+    const positionToReveal = unrevealedPositions[randomIndex];
+    
+    setRevealedDigits([...revealedDigits, positionToReveal]);
+    setHintsUsed(hintsUsed + 1);
+    
+    return true;
+  };
+
   const resetGame = () => {
     const newCode = generateSecretCode(digitCount);
     setSecretCode(newCode);
@@ -62,6 +89,8 @@ export function useGameLogic(digitCount = 3) {
     setWrongAttempts(0);
     setStartTime(Date.now());
     setElapsedTime(0);
+    setRevealedDigits([]);
+    setHintsUsed(0);
   };
 
   return {
@@ -72,8 +101,11 @@ export function useGameLogic(digitCount = 3) {
     attempts,
     wrongAttempts,
     elapsedTime,
+    revealedDigits,
+    hintsUsed,
     changeDigit,
     checkCode,
     resetGame,
+    revealHint,
   };
 }

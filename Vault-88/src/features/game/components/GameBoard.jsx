@@ -5,7 +5,7 @@ import { formatTime } from '../utils/scoreCalculator';
 import '../Game.css';
 import '../Pause.css';
 
-export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time }) {
+export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode }) {
   const { playUnlock, playWrong, playClick } = useSound();
 
   const handleUnlock = () => {
@@ -27,6 +27,11 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
   const handlePause = () => {
     playClick();
     onPause();
+  };
+
+  const handleRequestHint = () => {
+    playClick();
+    onRequestHint();
   };
 
   return (
@@ -75,6 +80,8 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
                 key={idx}
                 value={digit}
                 onClick={() => onDigitChange(idx)}
+                isRevealed={revealedDigits.includes(idx)}
+                revealedValue={secretCode?.[idx]}
               />
             ))}
           </div>
@@ -87,6 +94,17 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
               ))}
             </div>
           </div>
+
+          {/* Hint Request Button */}
+          <button 
+            onClick={handleRequestHint} 
+            className="hint-request-button"
+            disabled={hintsUsed >= 2}
+          >
+            <span className="material-icons-round">lightbulb</span>
+            <span>Request Hint ({hintsUsed}/2)</span>
+            <span className="hint-cost">-25 pts</span>
+          </button>
 
           {/* Unlock Button */}
           <button onClick={handleUnlock} className="unlock-button">

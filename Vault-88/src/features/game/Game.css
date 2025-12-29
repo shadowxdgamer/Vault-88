@@ -220,6 +220,49 @@
   }
 }
 
+/* Revealed Digit Hint */
+.digit-box.revealed {
+  border: 2px solid var(--accent-yellow);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3), 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+.digit-hint-reveal {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: linear-gradient(135deg, var(--accent-yellow) 0%, #f59e0b 100%);
+  padding: 2px 6px;
+  border-radius: 8px;
+  z-index: 20;
+  animation: hintReveal 0.4s ease-out;
+}
+
+@keyframes hintReveal {
+  from {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.hint-icon {
+  font-size: 14px;
+  color: #1a1f2e;
+}
+
+.hint-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1f2e;
+  font-family: 'Chakra Petch', monospace;
+}
+
 .hints-panel {
   border-radius: 1rem;
   padding: 0.25rem;
@@ -273,6 +316,55 @@
 .hint-row:last-child {
   border-bottom: none;
   margin-bottom: 0;
+}
+
+/* Hint Request Button */
+.hint-request-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  color: var(--accent-yellow);
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hint-request-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25) 0%, rgba(245, 158, 11, 0.25) 100%);
+  border-color: rgba(251, 191, 36, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+}
+
+.hint-request-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.hint-request-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.hint-request-button .material-icons-round {
+  font-size: 20px;
+}
+
+.hint-cost {
+  margin-left: auto;
+  font-size: 0.85rem;
+  opacity: 0.8;
 }
 
 .hint-digits {

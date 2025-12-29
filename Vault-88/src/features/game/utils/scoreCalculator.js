@@ -2,7 +2,7 @@
  * Score calculation utilities for Vault 88
  * 
  * Scoring Formula:
- * Base Score (from difficulty) - (wrong attempts × 10) + time bonus + perfect bonus
+ * Base Score (from difficulty) - (wrong attempts × 10) - (hints used × 25) + time bonus + perfect bonus
  * 
  * Time Bonus:
  * - Under 30s: +50 points
@@ -11,13 +11,19 @@
  * 
  * Perfect Bonus:
  * - First try (0 wrong attempts): +100 points
+ * 
+ * Hint Penalty:
+ * - Each hint costs 25 points
  */
 
-export function calculateScore(baseScore, wrongAttempts, timeInSeconds) {
+export function calculateScore(baseScore, wrongAttempts, timeInSeconds, hintsUsed = 0) {
   let score = baseScore;
 
   // Deduct points for wrong attempts
   score -= wrongAttempts * 10;
+
+  // Deduct points for hints used
+  score -= hintsUsed * 25;
 
   // Add time bonus
   if (timeInSeconds < 30) {
@@ -37,10 +43,11 @@ export function calculateScore(baseScore, wrongAttempts, timeInSeconds) {
   return Math.max(0, score);
 }
 
-export function getScoreBreakdown(baseScore, wrongAttempts, timeInSeconds) {
+export function getScoreBreakdown(baseScore, wrongAttempts, timeInSeconds, hintsUsed = 0) {
   const breakdown = {
     base: baseScore,
     attemptPenalty: wrongAttempts * 10,
+    hintPenalty: hintsUsed * 25,
     timeBonus: 0,
     perfectBonus: 0,
   };
@@ -60,7 +67,7 @@ export function getScoreBreakdown(baseScore, wrongAttempts, timeInSeconds) {
   }
 
   // Calculate final score
-  breakdown.total = Math.max(0, baseScore - breakdown.attemptPenalty + breakdown.timeBonus + breakdown.perfectBonus);
+  breakdown.total = Math.max(0, baseScore - breakdown.attemptPenalty - breakdown.hintPenalty + breakdown.timeBonus + breakdown.perfectBonus);
 
   return breakdown;
 }
