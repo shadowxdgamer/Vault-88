@@ -21,6 +21,8 @@ export function GameScreen({ onExit }) {
     } else {
       setMessage('ACCESS DENIED. TRY AGAIN.');
     }
+    
+    return won;
   };
 
   const handlePlayAgain = () => {

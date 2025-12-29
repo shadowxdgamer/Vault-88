@@ -1,8 +1,25 @@
+import { useSound } from '../../../shared/hooks/useSound';
 import { DigitBox } from './DigitBox';
 import { HintRow } from './HintRow';
 import '../Game.css';
 
 export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon }) {
+  const { playUnlock, playCorrect, playWrong } = useSound();
+
+  const handleUnlock = () => {
+    playUnlock();
+    const result = onUnlock();
+    
+    // Play correct or wrong sound after unlock sound
+    setTimeout(() => {
+      if (result) {
+        playCorrect();
+      } else {
+        playWrong();
+      }
+    }, 200);
+  };
+
   return (
     <div className="game-screen">
       {/* Background Image */}

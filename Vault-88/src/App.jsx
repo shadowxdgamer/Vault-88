@@ -1,12 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeProvider } from './shared/hooks/useTheme';
+import { useSound } from './shared/hooks/useSound';
 import { MainMenu } from './features/menu/MainMenu';
 import { GameScreen } from './features/game/GameScreen';
 import { Placeholder } from './shared/components/Placeholder';
 import './App.css';
 
-function App() {
+function AppContent() {
   const [currentScreen, setCurrentScreen] = useState('menu');
+  const { playBgMusic } = useSound();
+
+  // Start background music on mount
+  useEffect(() => {
+    // Small delay to ensure page is ready
+    const timer = setTimeout(() => {
+      playBgMusic();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -23,9 +35,13 @@ function App() {
     }
   };
 
+  return renderScreen();
+}
+
+function App() {
   return (
     <ThemeProvider>
-      {renderScreen()}
+      <AppContent />
     </ThemeProvider>
   );
 }

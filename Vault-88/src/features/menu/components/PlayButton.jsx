@@ -1,7 +1,16 @@
+import { useSound } from '../../../shared/hooks/useSound';
+
 export function PlayButton({ onClick }) {
+  const { playClick } = useSound();
+
+  const handleClick = () => {
+    playClick();
+    onClick();
+  };
+
   return (
     <div className="play-button-container">
-      <button onClick={onClick} className="play-button play-btn">
+      <button onClick={handleClick} className="play-button play-btn">
         <div className="play-button-content">
           <span className="play-button-title">PLAY</span>
           <span className="play-button-subtitle">INITIATE SEQUENCE</span>
