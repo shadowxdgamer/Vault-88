@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Crack: The Wooden Code</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --wood-light: #e2d1c3;
+            --wood-dark: #8b5e3c;
+            --accent: #38bdf8;
+            --text-main: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #game-container {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--wood-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .solution-input {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .digit-box {
+            width: 60px;
+            height: 80px;
+            background: var(--wood-light);
+            color: var(--wood-dark);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+
+        .digit-box:active {
+            transform: translateY(4px);
+            box-shadow: inset 0 0 0 rgba(0,0,0,0.2);
+        }
+
+        .hints-container {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .hint-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .hint-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .hint-digits {
+            display: flex;
+            gap: 5px;
+            margin-right: 15px;
+        }
+
+        .hint-digit {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .hint-text {
+            font-size: 0.85rem;
+            line-height: 1.2;
+            color: #cbd5e1;
+        }
+
+        .btn {
+            background: var(--wood-dark);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: #a36e4b;
+            transform: scale(1.05);
+        }
+
+        #message-box {
+            margin-top: 1.5rem;
+            font-weight: bold;
+            min-height: 1.5rem;
+        }
+
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--wood-light);
+            color: var(--wood-dark);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <h1>Crack the Code</h1>
+        
+        <div class="solution-input">
+            <div class="digit-box" id="d0" onclick="changeDigit(0)">0</div>
+            <div class="digit-box" id="d1" onclick="changeDigit(1)">0</div>
+            <div class="digit-box" id="d2" onclick="changeDigit(2)">0</div>
+        </div>
+
+        <div class="hints-container" id="hints-list">
+            <!-- Hints will be injected here -->
+        </div>
+
+        <button class="btn" onclick="checkCode()">Unlock</button>
+        <div id="message-box"></div>
+    </div>
+
+    <div id="win-modal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-size: 2.5rem; margin-top: 0;">UNLOCKED!</h2>
+            <p>You cracked the security system.</p>
+            <button class="btn" onclick="newGame()">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        let secretCode = [];
+        let currentGuess = [0, 0, 0];
+
+        function generateCode() {
+            // Generate 3 unique digits
+            let digits = [0,1,2,3,4,5,6,7,8,9];
+            secretCode = [];
+            for(let i=0; i<3; i++) {
+                let idx = Math.floor(Math.random() * digits.length);
+                secretCode.push(digits[idx]);
+                digits.splice(idx, 1);
+            }
+        }
+
+        function generateHints() {
+            const hints = [];
+            
+            // 1. One number is correct and well placed
+            let h1_idx = Math.floor(Math.random() * 3);
+            let h1_val = secretCode[h1_idx];
+            let h1_set = generateRandomFakeCode(h1_idx, h1_val, true); 
+            hints.push({ digits: h1_set, text: "One digit is correct and well placed." });
+
+            // 2. One number is correct but wrongly placed
+            let h2_idx_secret = (h1_idx + 1) % 3;
+            let h2_val = secretCode[h2_idx_secret];
+            let h2_idx_hint = (h2_idx_secret + 1) % 3;
+            let h2_set = generateRandomFakeCode(h2_idx_hint, h2_val, false);
+            hints.push({ digits: h2_set, text: "One digit is correct but wrongly placed." });
+
+            // 3. Two numbers are correct but wrongly placed
+            let h3_s1 = 0, h3_s2 = 1; // pick two
+            let h3_v1 = secretCode[h3_s1], h3_v2 = secretCode[h3_s2];
+            let h3_set = [0,0,0];
+            h3_set[2] = h3_v1;
+            h3_set[0] = h3_v2;
+            h3_set[1] = getNonSecretDigit();
+            hints.push({ digits: h3_set, text: "Two digits are correct but wrongly placed." });
+
+            // 4. Nothing is correct
+            let h4_set = [];
+            while(h4_set.length < 3) {
+                let r = Math.floor(Math.random() * 10);
+                if(!secretCode.includes(r) && !h4_set.includes(r)) h4_set.push(r);
+            }
+            hints.push({ digits: h4_set, text: "Nothing is correct." });
+
+            // Render hints
+            const container = document.getElementById('hints-list');
+            container.innerHTML = '';
+            hints.sort(() => Math.random() - 0.5).forEach(h => {
+                const row = document.createElement('div');
+                row.className = 'hint-row';
+                
+                let digitHtml = h.digits.map(d => `<div class="hint-digit">${d}</div>`).join('');
+                
+                row.innerHTML = `
+                    <div class="hint-digits">${digitHtml}</div>
+                    <div class="hint-text">${h.text}</div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function generateRandomFakeCode(fixedIdx, fixedVal, isWellPlaced) {
+            let res = [null, null, null];
+            res[fixedIdx] = fixedVal;
+            for(let i=0; i<3; i++) {
+                if(res[i] === null) {
+                    let r;
+                    do { r = Math.floor(Math.random() * 10); } 
+                    while(secretCode.includes(r) || res.includes(r));
+                    res[i] = r;
+                }
+            }
+            return res;
+        }
+
+        function getNonSecretDigit() {
+            let r;
+            do { r = Math.floor(Math.random() * 10); } 
+            while(secretCode.includes(r));
+            return r;
+        }
+
+        function changeDigit(idx) {
+            currentGuess[idx] = (currentGuess[idx] + 1) % 10;
+            document.getElementById(`d${idx}`).innerText = currentGuess[idx];
+            document.getElementById('message-box').innerText = '';
+        }
+
+        function checkCode() {
+            if(currentGuess.join('') === secretCode.join('')) {
+                document.getElementById('win-modal').style.display = 'flex';
+            } else {
+                const msg = document.getElementById('message-box');
+                msg.innerText = "ACCESS DENIED. TRY AGAIN.";
+                msg.className = "error";
+                
+                // Shake effect
+                const container = document.getElementById('game-container');
+                container.style.transform = 'translateX(10px)';
+                setTimeout(() => container.style.transform = 'translateX(-10px)', 50);
+                setTimeout(() => container.style.transform = 'translateX(0)', 100);
+            }
+        }
+
+        function newGame() {
+            document.getElementById('win-modal').style.display = 'none';
+            document.getElementById('message-box').innerText = '';
+            currentGuess = [0, 0, 0];
+            for(let i=0; i<3; i++) document.getElementById(`d${i}`).innerText = 0;
+            generateCode();
+            generateHints();
+        }
+
+        window.onload = newGame;
+    </script>
+</body>
+</html>

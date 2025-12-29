@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crack the Code</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&amp;family=Cinzel:wght@500;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            DEFAULT: "#78716c",
+                            light: "#a8a29e",
+                            dark: "#44403c",
+                            shadow: "#292524"
+                        },
+                        parchment: {
+                            DEFAULT: "#eaddcf",
+                            dark: "#d4c5b0",
+                            ink: "#3e2723"
+                        },
+                        gold: {
+                            DEFAULT: "#d4af37",
+                            light: "#f3e5ab",
+                            dark: "#8a6d1f"
+                        },
+                        arcane: {
+                            purple: "#4c1d95",
+                            glow: "#a855f7"
+                        }
+                    },
+                    fontFamily: {
+                        display: ["Cinzel", "serif"],
+                        tech: ["Chakra Petch", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'stone': 'inset 2px 2px 4px rgba(255,255,255,0.2), inset -2px -2px 4px rgba(0,0,0,0.5), 0 10px 15px -3px rgba(0,0,0,0.5)',
+                        'stone-active': 'inset 4px 4px 8px rgba(0,0,0,0.5), inset -1px -1px 2px rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.5)',
+                        'parchment': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15), inset 0 0 40px rgba(62, 39, 35, 0.05)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>body {
+    background: #1a1f2e
+    }
+.stone-texture {
+    background-color: #57534e;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBQhq1hllAWqOClRC-k3vqLJoCr1MiBkhRgsPDZMZMaUyH0RAQSlaNc0JsQvt1MqBVVRCvuikJSP_DaljNweqQRbxS5Iq6rd7WNTjUe6BH3xsWymsV2b0xHQLALk_H82UmuPzbXaQ7irTbaXckOGZRh8DCUNVv25SurBvUzFp9BhLN4tSTj5XR2r0UUv_2O84cPDee7210oKy1L5HY3U9B880I10GQebcBbvAGUOgqeqEIhqcyjxJxXjh8FAT6YoFaCXOM4-LiMKl0)
+    }
+.parchment-texture {
+    background-color: #eaddcf;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBmxMAxWdYV6_XAPnbWSflht1CdyMFYzMvJkQdDSQlE214PXhF6MgEZvWyytMutmH_CAW9_XiQSoUUF9FtFGo4DDsy_PW2WHMkmPnO2T_K_XdXt9T56OAwQ9dN7lXiukmK3H28gLn-oPJXMZE_iHpfINVlqtsEkNXUmk4rNYeWyp0FQ6u7rtsLje_o55Hb4JyH0VVrxtoVBvyoUPBy9AG4iblhp9Rpk9Y-P6dRHdluqKVQzYdQJcAcgPsWA3MQY3Cbxw_hVqqV4hfw);
+    box-shadow: inset 0 0 30px rgba(62, 39, 35, 0.1)
+    }
+.text-carved {
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.15), -1px -1px 2px rgba(0, 0, 0, 0.8);
+    color: #292524
+    }.custom-scrollbar::-webkit-scrollbar {
+    width: 6px
+    }
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(62, 39, 35, 0.05)
+    }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(62, 39, 35, 0.2);
+    border-radius: 3px
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex items-center justify-center font-body bg-gray-900 text-white overflow-hidden relative selection:bg-arcane-glow selection:text-white">
+<div class="absolute inset-0 z-0">
+<img alt="Background landscape" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNTosZ9_7WuEyufglHnWkO-HeAbAK7Fag8VY0f64Wz8POUE9GRNCdgxOjt4uT0AdgVWVQ6164JCCKkl5X-Ctka3Oe2-iDyXx54EJcVBewgq5mpHMB-Ky40Ghs53HDHsngmfJ5B0iILfNAmRr76f6W6MlrB8m5exZ5GFipuzghSdj0yrGuqsrSYTI4PgsJPKKhJia8ynMwGdry86FBUFEzLu6JqujNpfDfWD1FZ37LcFxDxcR7Z-rJqxvPxRnKmGiDJEYTCTS650QY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-[#581c87]/50 to-[#fdba74]/30 backdrop-blur-[2px] mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70"></div>
+<div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none"></div>
+</div>
+<div class="relative z-10 w-full max-w-md h-full sm:h-auto sm:min-h-[800px] bg-[#1c1917]/95 sm:rounded-[30px] shadow-2xl overflow-hidden flex flex-col border border-gold/30 backdrop-blur-sm">
+<header class="pt-8 px-6 pb-4 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent">
+<div>
+<h1 class="text-3xl font-display font-bold text-gold tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Crack the Code</h1>
+<p class="text-[10px] text-gold-light/60 font-tech tracking-[0.2em] uppercase mt-1 pl-0.5">Vault 88 Security Override</p>
+</div>
+<button class="p-2 rounded-full hover:bg-gold/10 transition-colors text-gold hover:text-gold-light border border-transparent hover:border-gold/30">
+<span class="material-icons-round text-2xl">refresh</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col px-6 pb-8 overflow-y-auto">
+<div class="flex justify-center gap-4 py-8 mb-4">
+<div class="w-20 h-28 stone-texture rounded-lg flex items-center justify-center shadow-stone cursor-pointer relative overflow-hidden group transform transition-all duration-100 active:scale-95 active:shadow-stone-active border-t border-white/10 border-b border-black/40">
+<div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-carved select-none">0</span>
+</div>
+<div class="w-20 h-28 stone-texture rounded-lg flex items-center justify-center shadow-stone cursor-pointer relative overflow-hidden group transform transition-all duration-100 active:scale-95 active:shadow-stone-active border-t border-white/10 border-b border-black/40">
+<div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-carved select-none">0</span>
+</div>
+<div class="w-20 h-28 stone-texture rounded-lg flex items-center justify-center shadow-stone cursor-pointer relative overflow-hidden group transform transition-all duration-100 active:scale-95 active:shadow-stone-active border-t border-white/10 border-b border-black/40">
+<div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-carved select-none">0</span>
+</div>
+</div>
+<div class="parchment-texture rounded-xl p-1 flex-1 mb-6 shadow-parchment border border-gold relative">
+<div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-gold rounded-tl-lg opacity-80"></div>
+<div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-gold rounded-tr-lg opacity-80"></div>
+<div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-gold rounded-bl-lg opacity-80"></div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-gold rounded-br-lg opacity-80"></div>
+<div class="h-full overflow-y-auto p-4 space-y-5 custom-scrollbar">
+<div class="flex items-start gap-4 pb-4 border-b border-[#3e2723]/10">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">5</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">1</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">8</span>
+</div>
+</div>
+<p class="text-sm font-semibold text-parchment-ink leading-tight pt-1.5 font-display tracking-wide">Nothing is correct.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-[#3e2723]/10">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">2</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">3</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">4</span>
+</div>
+</div>
+<p class="text-sm font-semibold text-parchment-ink leading-tight pt-1.5 font-display tracking-wide">One digit is correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-[#3e2723]/10">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">9</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">5</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">7</span>
+</div>
+</div>
+<p class="text-sm font-semibold text-parchment-ink leading-tight pt-1.5 font-display tracking-wide">Two digits are correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">1</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">9</span>
+</div>
+<div class="w-8 h-8 rounded bg-arcane-purple flex items-center justify-center shadow-md border border-gold/40">
+<span class="font-display font-bold text-gold-light text-sm">5</span>
+</div>
+</div>
+<p class="text-sm font-semibold text-parchment-ink leading-tight pt-1.5 font-display tracking-wide">One digit is correct and well placed.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 rounded-full bg-arcane-purple hover:bg-purple-800 active:bg-purple-900 text-gold font-display font-bold text-lg tracking-[0.2em] uppercase shadow-lg transform transition-all active:scale-[0.98] border border-gold/50 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+<span class="relative z-10 drop-shadow-md">Unlock</span>
+</button>
+</main>
+<div class="h-1 w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+</div>
+
+</body></html>

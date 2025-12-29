@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crack the Code</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#8B5E3C", // Wood brown
+                        "primary-dark": "#6D4C32",
+                        "accent-cyan": "#38bdf8",
+                        "background-light": "#f3f4f6",
+                        "background-dark": "#1a1f2e",
+                        "panel-light": "#ffffff",
+                        "panel-dark": "#23293a",
+                        "wood-light": "#e3d5ca",
+                        "wood-dark": "#c4a484",
+                        "wood-text": "#6f4e37",
+                        "guess-bg": "#4db6eb",
+                    },
+                    fontFamily: {
+                        display: ["Chakra Petch", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                    boxShadow: {
+                        'wood': '0 4px 0 0 #bcaaa4, 0 8px 10px rgba(0,0,0,0.1)',
+                        'wood-active': '0 2px 0 0 #bcaaa4, 0 4px 6px rgba(0,0,0,0.1)',
+                        'neumorphic': '8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff',
+                        'neumorphic-dark': '4px 4px 10px rgba(0,0,0,0.5), -4px -4px 10px rgba(255,255,255,0.05)',
+                        'inner-dark': 'inset 2px 2px 5px rgba(0,0,0,0.3)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {background: #1a1f2e;
+        }
+        .glass-panel {
+            background: rgba(35, 41, 58, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 35, 50, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }.wood-texture {
+            background-color: #e3d5ca;
+            background-image: 
+                linear-gradient(90deg, transparent 50%, rgba(255,255,255,.2) 50%),
+                linear-gradient(0deg, rgba(0,0,0,.05) 1px, transparent 1px);
+            background-size: 10px 100%, 100% 4px;
+        }
+        .wood-shadow {
+            box-shadow: 0 6px 0 #a89f91, 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: all 0.1s ease;
+        }
+        .wood-shadow:active {
+            box-shadow: 0 2px 0 #a89f91, 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transform: translateY(4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex items-center justify-center font-body bg-gray-900 text-white overflow-hidden relative selection:bg-accent-cyan selection:text-white">
+<div class="absolute inset-0 z-0">
+<img alt="Moody twilight mountain landscape background" class="w-full h-full object-cover opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNTosZ9_7WuEyufglHnWkO-HeAbAK7Fag8VY0f64Wz8POUE9GRNCdgxOjt4uT0AdgVWVQ6164JCCKkl5X-Ctka3Oe2-iDyXx54EJcVBewgq5mpHMB-Ky40Ghs53HDHsngmfJ5B0iILfNAmRr76f6W6MlrB8m5exZ5GFipuzghSdj0yrGuqsrSYTI4PgsJPKKhJia8ynMwGdry86FBUFEzLu6JqujNpfDfWD1FZ37LcFxDxcR7Z-rJqxvPxRnKmGiDJEYTCTS650QY"/>
+<div class="absolute inset-0 bg-gradient-to-b from-[#1a1f2e] via-[#1a1f2e]/80 to-[#1a1f2e]/90"></div>
+</div>
+<div class="relative z-10 w-full max-w-md h-full sm:h-auto sm:min-h-[800px] bg-[#1a1f2e] sm:rounded-[40px] shadow-2xl overflow-hidden flex flex-col border border-white/5 sm:border-white/10">
+<header class="pt-8 px-6 pb-4 flex justify-between items-center bg-gradient-to-b from-black/20 to-transparent">
+<h1 class="text-2xl font-display font-bold tracking-widest text-[#e3d5ca] uppercase drop-shadow-md">Crack the Code</h1>
+<button class="p-2 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white">
+<span class="material-icons-round text-2xl">refresh</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col px-6 pb-8 overflow-y-auto">
+<div class="flex justify-center gap-4 py-8 mb-4">
+<div class="w-20 h-28 bg-[#e3d5ca] rounded-xl flex items-center justify-center wood-shadow cursor-pointer relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-[#8B5E3C] drop-shadow-sm select-none">0</span>
+</div>
+<div class="w-20 h-28 bg-[#e3d5ca] rounded-xl flex items-center justify-center wood-shadow cursor-pointer relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-[#8B5E3C] drop-shadow-sm select-none">0</span>
+</div>
+<div class="w-20 h-28 bg-[#e3d5ca] rounded-xl flex items-center justify-center wood-shadow cursor-pointer relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
+<span class="text-5xl font-display font-bold text-[#8B5E3C] drop-shadow-sm select-none">0</span>
+</div>
+</div>
+<div class="glass-panel rounded-2xl p-1 flex-1 mb-6 shadow-inner-dark border border-white/5 bg-[#161b29]">
+<div class="h-full overflow-y-auto p-4 space-y-5 custom-scrollbar">
+<div class="flex items-start gap-4 pb-4 border-b border-white/5">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">5</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">1</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">8</span>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-300 leading-tight pt-1.5">Nothing is correct.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-white/5">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">2</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">3</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">4</span>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-300 leading-tight pt-1.5">One digit is correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-white/5">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">9</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">5</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">7</span>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-300 leading-tight pt-1.5">Two digits are correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex gap-1.5 shrink-0 pt-0.5">
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">1</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">9</span>
+</div>
+<div class="w-8 h-8 rounded bg-guess-bg flex items-center justify-center shadow-lg">
+<span class="font-display font-bold text-gray-900 text-sm">5</span>
+</div>
+</div>
+<p class="text-sm font-medium text-gray-300 leading-tight pt-1.5">One digit is correct and well placed.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 rounded-full bg-[#8B5E3C] hover:bg-[#7a5235] active:bg-[#68462d] text-white font-display font-bold text-lg tracking-wider uppercase shadow-lg transform transition-all active:scale-[0.98] border-b-4 border-[#5d3f28] active:border-b-0 active:translate-y-1 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                Unlock
+            </button>
+</main>
+<div class="h-1 w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+</div>
+
+</body></html>

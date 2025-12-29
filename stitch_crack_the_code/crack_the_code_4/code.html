@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crack the Code</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "glass-border": "rgba(255, 255, 255, 0.2)",
+                        "glass-surface": "rgba(255, 255, 255, 0.1)",
+                        "liquid-blue": "#3b82f6",
+                        "liquid-pink": "#ec4899",
+                        "neon-cyan": "#06b6d4",
+                    },
+                    fontFamily: {
+                        display: ["Chakra Petch", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glass-3d': 'inset 0 1px 0 0 rgba(255,255,255,0.4), inset 0 -4px 0 0 rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.2)',
+                        'glass-glow': '0 0 20px rgba(56, 189, 248, 0.3)',
+                        'liquid': '0 10px 30px -10px rgba(236, 72, 153, 0.5)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            background-color: #0f172a;
+            color: white;
+        }.fractal-bg {
+            background: 
+                radial-gradient(at 0% 0%, rgba(236, 72, 153, 0.6) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.6) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.6) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 182, 212, 0.6) 0px, transparent 50%),
+                repeating-conic-gradient(from 0deg, rgba(0,0,0,0) 0deg, rgba(0,0,0,0) 10deg, rgba(255,255,255,0.05) 10deg, rgba(255,255,255,0.05) 20deg);
+            background-size: 100% 100%;
+            filter: blur(40px);
+            transform: scale(1.2);
+            animation: shiftColors 20s infinite alternate;
+        }
+        @keyframes shiftColors {
+            0% { filter: hue-rotate(0deg) blur(40px); }
+            100% { filter: hue-rotate(60deg) blur(40px); }
+        }
+        .glass-panel-heavy {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-block-input {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.05),
+                0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-block-input::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+            pointer-events: none;
+        }.liquid-blob {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            background: linear-gradient(45deg, rgba(236, 72, 153, 0.4), rgba(59, 130, 246, 0.4));
+            filter: blur(20px);
+        }.custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .shimmer-text {
+            background: linear-gradient(to right, #fff, #a5f3fc, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex items-center justify-center font-body overflow-hidden relative selection:bg-pink-500 selection:text-white">
+<div class="absolute inset-0 z-0 overflow-hidden bg-[#0f172a]">
+<img alt="Moody twilight mountain landscape background" class="hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNTosZ9_7WuEyufglHnWkO-HeAbAK7Fag8VY0f64Wz8POUE9GRNCdgxOjt4uT0AdgVWVQ6164JCCKkl5X-Ctka3Oe2-iDyXx54EJcVBewgq5mpHMB-Ky40Ghs53HDHsngmfJ5B0iILfNAmRr76f6W6MlrB8m5exZ5GFipuzghSdj0yrGuqsrSYTI4PgsJPKKhJia8ynMwGdry86FBUFEzLu6JqujNpfDfWD1FZ37LcFxDxcR7Z-rJqxvPxRnKmGiDJEYTCTS650QY"/>
+<div class="fractal-bg absolute inset-[-50%] w-[200%] h-[200%]"></div>
+<div class="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
+</div>
+<div class="relative z-10 w-full max-w-md h-full sm:h-auto sm:min-h-[850px] bg-white/5 sm:rounded-[40px] shadow-2xl overflow-hidden flex flex-col border border-white/10 backdrop-blur-xl">
+<header class="pt-10 px-6 pb-6 flex justify-between items-center relative z-20">
+<h1 class="text-3xl font-display font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-pink-300 uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                Crack<br/><span class="text-lg tracking-[0.3em] opacity-80">The Code</span>
+</h1>
+<button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20 shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+<span class="material-symbols-outlined text-cyan-200">refresh</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col px-6 pb-8 overflow-y-auto relative z-20">
+<div class="flex justify-center gap-4 py-8 mb-4 perspective-[1000px]">
+<div class="w-24 h-32 glass-block-input rounded-2xl flex items-center justify-center cursor-pointer group transition-transform active:scale-95 duration-200">
+<span class="text-6xl font-display font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] group-hover:scale-110 transition-transform">0</span>
+<div class="absolute inset-0 rounded-2xl ring-1 ring-white/30 group-hover:ring-white/60 transition-all"></div>
+</div>
+<div class="w-24 h-32 glass-block-input rounded-2xl flex items-center justify-center cursor-pointer group transition-transform active:scale-95 duration-200">
+<span class="text-6xl font-display font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] group-hover:scale-110 transition-transform">0</span>
+<div class="absolute inset-0 rounded-2xl ring-1 ring-white/30 group-hover:ring-white/60 transition-all"></div>
+</div>
+<div class="w-24 h-32 glass-block-input rounded-2xl flex items-center justify-center cursor-pointer group transition-transform active:scale-95 duration-200">
+<span class="text-6xl font-display font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] group-hover:scale-110 transition-transform">0</span>
+<div class="absolute inset-0 rounded-2xl ring-1 ring-white/30 group-hover:ring-white/60 transition-all"></div>
+</div>
+</div>
+<div class="glass-panel-heavy rounded-3xl flex-1 mb-8 relative overflow-hidden flex flex-col">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+<div class="h-full overflow-y-auto p-5 space-y-4 custom-scrollbar">
+<div class="flex items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+<div class="flex gap-1.5 shrink-0 pt-1">
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500/80 to-purple-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">5</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500/80 to-purple-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">1</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500/80 to-purple-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">8</span>
+</div>
+</div>
+<p class="text-sm font-medium text-blue-100/70 leading-snug pt-2">Nothing is correct.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+<div class="flex gap-1.5 shrink-0 pt-1">
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500/80 to-cyan-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">2</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500/80 to-cyan-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">3</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500/80 to-cyan-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">4</span>
+</div>
+</div>
+<p class="text-sm font-medium text-blue-100/70 leading-snug pt-2">One digit is correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+<div class="flex gap-1.5 shrink-0 pt-1">
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500/80 to-violet-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">9</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500/80 to-violet-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">5</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500/80 to-violet-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">7</span>
+</div>
+</div>
+<p class="text-sm font-medium text-blue-100/70 leading-snug pt-2">Two digits are correct but wrongly placed.</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex gap-1.5 shrink-0 pt-1">
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400/80 to-teal-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">1</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400/80 to-teal-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">9</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400/80 to-teal-600/80 flex items-center justify-center shadow-lg border border-white/20">
+<span class="font-display font-bold text-white text-lg">5</span>
+</div>
+</div>
+<p class="text-sm font-medium text-emerald-200 leading-snug pt-2 drop-shadow-md">One digit is correct and well placed.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white font-display font-bold text-xl tracking-widest uppercase shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_50px_rgba(59,130,246,0.6)] transform transition-all active:scale-[0.98] border border-white/20 relative overflow-hidden group">
+<span class="relative z-10 drop-shadow-md">Unlock</span>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+</main>
+<div class="absolute -bottom-20 -right-20 w-64 h-64 bg-pink-500/20 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-cyan-500/20 rounded-full blur-[80px] pointer-events-none"></div>
+</div>
+
+</body></html>

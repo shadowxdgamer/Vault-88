@@ -1,0 +1,307 @@
+/* Main Menu Styles */
+.menu-screen {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  background-color: #111827;
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.menu-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.menu-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.menu-background-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, 
+    rgba(26, 31, 46, 0.9) 0%, 
+    rgba(26, 31, 46, 0.6) 50%, 
+    rgba(26, 31, 46, 0.9) 100%);
+}
+
+.menu-background-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.menu-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 28rem;
+  height: 100%;
+  background-color: rgba(26, 31, 46, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+@media (min-width: 640px) {
+  .menu-container {
+    height: auto;
+    min-height: 850px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.menu-header {
+  padding-top: 4rem;
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 20;
+}
+
+.menu-title-container {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.menu-title-glow {
+  position: absolute;
+  inset: -1rem;
+  background-color: rgba(56, 189, 248, 0.2);
+  filter: blur(2rem);
+  border-radius: 9999px;
+  opacity: 0.3;
+}
+
+.menu-title {
+  position: relative;
+  font-size: 3.75rem;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  color: #e3d5ca;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.5));
+}
+
+.menu-title-accent {
+  color: var(--accent-cyan);
+}
+
+.menu-subtitle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-subtitle-line {
+  height: 1px;
+  width: 2rem;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.menu-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.menu-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  justify-content: center;
+  padding-bottom: 3rem;
+  overflow-y: auto;
+  position: relative;
+  z-index: 20;
+}
+
+.play-button-container {
+  margin-bottom: 1rem;
+}
+
+.play-button {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.play-button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.play-button-title {
+  font-size: 1.875rem;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 0.1em;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: color 0.3s ease;
+}
+
+.play-button:hover .play-button-title {
+  color: var(--accent-cyan);
+}
+
+.play-button-subtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+
+.play-button-icon-container {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background-color: rgba(56, 189, 248, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  color: var(--accent-cyan);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.play-button:hover .play-button-icon-container {
+  background-color: var(--accent-cyan);
+  color: #1f2937;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.menu-button {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-button-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-button-icon-container {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.menu-button:hover .menu-button-icon-container {
+  background-color: rgba(56, 189, 248, 0.1);
+}
+
+.menu-button-icon {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.menu-button:hover .menu-button-icon {
+  color: var(--accent-cyan);
+}
+
+.menu-button-label {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.025em;
+}
+
+.menu-button-arrow {
+  color: rgba(255, 255, 255, 0.2);
+  transition: color 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.menu-button:hover .menu-button-arrow {
+  color: rgba(56, 189, 248, 0.6);
+}
+
+.menu-footer {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  padding-top: 0.5rem;
+  position: relative;
+  z-index: 20;
+}
+
+.menu-footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.625rem;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: 'Courier New', monospace;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1rem;
+}
+
+.bottom-accent {
+  height: 0.25rem;
+  width: 100%;
+  background: linear-gradient(to right, 
+    transparent, 
+    rgba(56, 189, 248, 0.3), 
+    transparent);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

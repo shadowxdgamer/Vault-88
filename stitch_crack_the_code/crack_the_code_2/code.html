@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crack the Code</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&amp;family=Rajdhani:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "cyber-black": "#05070a",
+                        "cyber-dark": "#0d1117",
+                        "neon-green": "#00ff41",
+                        "neon-green-dim": "rgba(0, 255, 65, 0.2)",
+                        "holo-blue": "#00f3ff",
+                        "metal-light": "#e2e8f0",
+                        "metal-dark": "#475569",
+                        "panel-glass": "rgba(13, 17, 23, 0.7)",
+                    },
+                    fontFamily: {
+                        display: ["Chakra Petch", "sans-serif"],
+                        body: ["Rajdhani", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                    },
+                    boxShadow: {
+                        'neon': '0 0 5px #00ff41, 0 0 10px #00ff41, 0 0 20px #00ff41',
+                        'neon-sm': '0 0 2px #00ff41, 0 0 5px #00ff41',
+                        'metal': 'inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 6px rgba(0,0,0,0.6), 0 2px 0 #1e293b',
+                        'holo': '0 0 15px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(0, 243, 255, 0.05)',
+                    },
+                    backgroundImage: {
+                        'metal-gradient': 'linear-gradient(135deg, #cbd5e1 0%, #94a3b8 50%, #64748b 51%, #475569 100%)',
+                        'grid-pattern': 'linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            background-color: #05070a;
+            color: #e2e8f0;
+        }
+        .holo-panel {
+            background: rgba(5, 10, 20, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.05), inset 0 0 20px rgba(0, 255, 65, 0.05);
+            position: relative;
+        }
+        .holo-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, rgba(0, 255, 65, 0.05) 50%, transparent 52%);
+            background-size: 10px 10px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .holo-panel::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: inherit;
+            background: linear-gradient(to bottom, rgba(0,255,65,0.4), transparent 30%, transparent 70%, rgba(0,255,65,0.4));
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .metal-block {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 50%, #64748b 51%, #475569 100%);
+            border: 1px solid #94a3b8;
+            box-shadow: 
+                inset 1px 1px 0 rgba(255,255,255,0.5),
+                inset -1px -1px 0 rgba(0,0,0,0.3),
+                0 5px 10px rgba(0,0,0,0.5),
+                0 10px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 -1px 1px rgba(255,255,255,0.3), 0 1px 1px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .metal-block::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.05) 2px,
+                rgba(0,0,0,0.05) 4px
+            );
+            pointer-events: none;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 65, 0.3);
+            position: absolute;
+            z-index: 50;
+            animation: scanline 4s linear infinite;
+            opacity: 0.5;
+            box-shadow: 0 0 4px rgba(0, 255, 65, 0.5);
+        }
+        @keyframes scanline {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #05070a;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        .bg-cyber-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+        }.custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 255, 65, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 65, 0.3);
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 65, 0.5);
+        }
+        body {
+            min-height: max(800px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex items-center justify-center font-body bg-cyber-black text-gray-100 overflow-hidden relative selection:bg-neon-green selection:text-black">
+<div class="absolute inset-0 z-0">
+<img alt="Futuristic neon city skyline at night" class="w-full h-full object-cover opacity-60 filter blur-[2px] contrast-125 brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNTosZ9_7WuEyufglHnWkO-HeAbAK7Fag8VY0f64Wz8POUE9GRNCdgxOjt4uT0AdgVWVQ6164JCCKkl5X-Ctka3Oe2-iDyXx54EJcVBewgq5mpHMB-Ky40Ghs53HDHsngmfJ5B0iILfNAmRr76f6W6MlrB8m5exZ5GFipuzghSdj0yrGuqsrSYTI4PgsJPKKhJia8ynMwGdry86FBUFEzLu6JqujNpfDfWD1FZ37LcFxDxcR7Z-rJqxvPxRnKmGiDJEYTCTS650QY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-cyber-black via-cyber-black/80 to-transparent"></div>
+<div class="absolute inset-0 bg-cyber-grid pointer-events-none opacity-30"></div>
+</div>
+<div class="absolute inset-0 z-20 pointer-events-none overflow-hidden h-full w-full">
+<div class="scanline"></div>
+</div>
+<div class="relative z-10 w-full max-w-md h-full sm:h-[90vh] sm:max-h-[850px] bg-cyber-black/80 sm:rounded-xl shadow-[0_0_50px_rgba(0,255,65,0.1)] overflow-hidden flex flex-col border border-neon-green/30 backdrop-blur-md">
+<header class="pt-6 px-6 pb-4 flex justify-between items-center bg-gradient-to-b from-neon-green/10 to-transparent border-b border-neon-green/20">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-[0.3em] text-neon-green font-bold mb-1">System Security</span>
+<h1 class="text-3xl font-display font-bold tracking-wider text-white uppercase drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] glitch-text" data-text="CRACK THE CODE">Crack the Code</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-neon-green/30 hover:bg-neon-green/10 hover:border-neon-green transition-all group">
+<span class="material-symbols-outlined text-neon-green group-hover:drop-shadow-[0_0_8px_rgba(0,255,65,0.8)] transition-all">refresh</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col px-6 pb-8 overflow-y-auto relative">
+<div class="flex justify-center gap-4 py-8 mb-2 relative">
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-neon-green/20 -z-10"></div>
+<div class="w-20 h-28 metal-block rounded flex items-center justify-center cursor-pointer group active:scale-95 transition-transform duration-100">
+<span class="text-5xl font-display font-bold text-gray-800 z-10">0</span>
+<div class="absolute bottom-2 w-12 h-1 bg-neon-green/50 rounded-full shadow-[0_0_5px_rgba(0,255,65,0.8)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-20 h-28 metal-block rounded flex items-center justify-center cursor-pointer group active:scale-95 transition-transform duration-100">
+<span class="text-5xl font-display font-bold text-gray-800 z-10">0</span>
+<div class="absolute bottom-2 w-12 h-1 bg-neon-green/50 rounded-full shadow-[0_0_5px_rgba(0,255,65,0.8)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-20 h-28 metal-block rounded flex items-center justify-center cursor-pointer group active:scale-95 transition-transform duration-100">
+<span class="text-5xl font-display font-bold text-gray-800 z-10">0</span>
+<div class="absolute bottom-2 w-12 h-1 bg-neon-green/50 rounded-full shadow-[0_0_5px_rgba(0,255,65,0.8)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<div class="holo-panel rounded flex-1 mb-6 flex flex-col overflow-hidden">
+<div class="px-4 py-2 border-b border-neon-green/20 bg-neon-green/5 flex justify-between items-center">
+<span class="text-xs font-mono text-neon-green uppercase tracking-wider">Log Entries</span>
+<span class="w-2 h-2 rounded-full bg-neon-green animate-pulse shadow-[0_0_5px_rgba(0,255,65,1)]"></span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+<div class="flex items-start gap-4 pb-4 border-b border-neon-green/10 group hover:bg-neon-green/5 transition-colors p-2 rounded">
+<div class="flex gap-1 shrink-0 pt-0.5 font-mono">
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">5</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">1</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">8</div>
+</div>
+<p class="text-sm font-medium text-gray-400 leading-tight pt-1.5 font-mono group-hover:text-neon-green transition-colors">
+<span class="text-xs text-red-500 mr-1">[ERR]</span> Nothing is correct.
+                        </p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-neon-green/10 group hover:bg-neon-green/5 transition-colors p-2 rounded">
+<div class="flex gap-1 shrink-0 pt-0.5 font-mono">
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">2</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">3</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">4</div>
+</div>
+<p class="text-sm font-medium text-gray-400 leading-tight pt-1.5 font-mono group-hover:text-neon-green transition-colors">
+<span class="text-xs text-yellow-500 mr-1">[WARN]</span> One digit is correct but wrongly placed.
+                        </p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-neon-green/10 group hover:bg-neon-green/5 transition-colors p-2 rounded">
+<div class="flex gap-1 shrink-0 pt-0.5 font-mono">
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">9</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">5</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">7</div>
+</div>
+<p class="text-sm font-medium text-gray-400 leading-tight pt-1.5 font-mono group-hover:text-neon-green transition-colors">
+<span class="text-xs text-yellow-500 mr-1">[WARN]</span> Two digits are correct but wrongly placed.
+                        </p>
+</div>
+<div class="flex items-start gap-4 group hover:bg-neon-green/5 transition-colors p-2 rounded">
+<div class="flex gap-1 shrink-0 pt-0.5 font-mono">
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">1</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">9</div>
+<div class="w-8 h-8 border border-neon-green/40 bg-black/40 flex items-center justify-center text-neon-green font-bold text-lg shadow-[0_0_5px_rgba(0,255,65,0.1)]">5</div>
+</div>
+<p class="text-sm font-medium text-gray-400 leading-tight pt-1.5 font-mono group-hover:text-neon-green transition-colors">
+<span class="text-xs text-holo-blue mr-1">[INFO]</span> One digit is correct and well placed.
+                        </p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 rounded bg-gradient-to-r from-neon-green/80 to-emerald-500 hover:from-neon-green hover:to-emerald-400 text-black font-display font-bold text-xl tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(0,255,65,0.4)] transform transition-all active:scale-[0.98] relative overflow-hidden group border border-neon-green">
+<span class="relative z-10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-2xl">lock_open</span>
+                    Decript Data
+                </span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<div class="absolute top-0 bottom-0 left-[-10px] w-[5px] bg-white/50 blur-[2px] skew-x-[-20deg] animate-[shine_3s_infinite]"></div>
+</button>
+<style>
+                @keyframes shine {
+                    0% { left: -50%; }
+                    20% { left: 150%; }
+                    100% { left: 150%; }
+                }
+            </style>
+</main>
+<div class="h-8 bg-black/60 border-t border-neon-green/20 flex items-center justify-between px-4 text-[10px] font-mono text-neon-green/60 uppercase">
+<span>Security Lvl: Max</span>
+<span class="flex items-center gap-2">
+                Server: Online
+                <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></span>
+</span>
+</div>
+</div>
+
+</body></html>
