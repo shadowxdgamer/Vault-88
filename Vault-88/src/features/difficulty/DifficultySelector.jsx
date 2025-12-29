@@ -1,9 +1,11 @@
 import { useSound } from '../../shared/hooks/useSound';
+import { useLanguage } from '../../shared/hooks/useLanguage';
 import { GAME_MODES, MODE_CONFIG } from '../../shared/utils/constants';
 import './Difficulty.css';
 
 export function DifficultySelector({ onSelect, onBack }) {
   const { playClick, playHover } = useSound();
+  const { t } = useLanguage();
 
   const handleSelect = (mode) => {
     playClick();
@@ -39,7 +41,7 @@ export function DifficultySelector({ onSelect, onBack }) {
           >
             <span className="material-icons-round">arrow_back</span>
           </button>
-          <h1 className="difficulty-title">Select Difficulty</h1>
+          <h1 className="difficulty-title">{t('difficulty.title')}</h1>
           <div style={{ width: '2.5rem' }}></div>
         </header>
 
@@ -55,19 +57,19 @@ export function DifficultySelector({ onSelect, onBack }) {
               <div className="difficulty-card-icon">
                 <span className="material-icons-round">{MODE_CONFIG[GAME_MODES.EASY].icon}</span>
               </div>
-              <h2 className="difficulty-card-title">{MODE_CONFIG[GAME_MODES.EASY].name}</h2>
+              <h2 className="difficulty-card-title">{t('difficulty.easy')}</h2>
             </div>
             <p className="difficulty-card-description">
-              {MODE_CONFIG[GAME_MODES.EASY].description}
+              {t('difficulty.easyDesc')}
             </p>
             <div className="difficulty-card-stats">
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">grid_3x3</span>
-                <span>{MODE_CONFIG[GAME_MODES.EASY].digits} Digits</span>
+                <span>{MODE_CONFIG[GAME_MODES.EASY].digits} {t('difficulty.digits')}</span>
               </div>
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">star</span>
-                <span>{MODE_CONFIG[GAME_MODES.EASY].baseScore} pts</span>
+                <span>{MODE_CONFIG[GAME_MODES.EASY].baseScore} {t('difficulty.points')}</span>
               </div>
             </div>
           </div>
@@ -82,19 +84,19 @@ export function DifficultySelector({ onSelect, onBack }) {
               <div className="difficulty-card-icon">
                 <span className="material-icons-round">{MODE_CONFIG[GAME_MODES.MEDIUM].icon}</span>
               </div>
-              <h2 className="difficulty-card-title">{MODE_CONFIG[GAME_MODES.MEDIUM].name}</h2>
+              <h2 className="difficulty-card-title">{t('difficulty.medium')}</h2>
             </div>
             <p className="difficulty-card-description">
-              {MODE_CONFIG[GAME_MODES.MEDIUM].description}
+              {t('difficulty.mediumDesc')}
             </p>
             <div className="difficulty-card-stats">
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">grid_4x4</span>
-                <span>{MODE_CONFIG[GAME_MODES.MEDIUM].digits} Digits</span>
+                <span>{MODE_CONFIG[GAME_MODES.MEDIUM].digits} {t('difficulty.digits')}</span>
               </div>
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">star</span>
-                <span>{MODE_CONFIG[GAME_MODES.MEDIUM].baseScore} pts</span>
+                <span>{MODE_CONFIG[GAME_MODES.MEDIUM].baseScore} {t('difficulty.points')}</span>
               </div>
             </div>
           </div>
@@ -109,19 +111,19 @@ export function DifficultySelector({ onSelect, onBack }) {
               <div className="difficulty-card-icon">
                 <span className="material-icons-round">{MODE_CONFIG[GAME_MODES.HARD].icon}</span>
               </div>
-              <h2 className="difficulty-card-title">{MODE_CONFIG[GAME_MODES.HARD].name}</h2>
+              <h2 className="difficulty-card-title">{t('difficulty.hard')}</h2>
             </div>
             <p className="difficulty-card-description">
-              {MODE_CONFIG[GAME_MODES.HARD].description}
+              {t('difficulty.hardDesc')}
             </p>
             <div className="difficulty-card-stats">
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">apps</span>
-                <span>{MODE_CONFIG[GAME_MODES.HARD].digits} Digits</span>
+                <span>{MODE_CONFIG[GAME_MODES.HARD].digits} {t('difficulty.digits')}</span>
               </div>
               <div className="difficulty-card-stat">
                 <span className="material-icons-round difficulty-card-stat-icon">star</span>
-                <span>{MODE_CONFIG[GAME_MODES.HARD].baseScore} pts</span>
+                <span>{MODE_CONFIG[GAME_MODES.HARD].baseScore} {t('difficulty.points')}</span>
               </div>
             </div>
           </div>

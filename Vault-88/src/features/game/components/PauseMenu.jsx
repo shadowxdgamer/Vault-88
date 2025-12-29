@@ -1,8 +1,10 @@
 import { useSound } from '../../../shared/hooks/useSound';
+import { useLanguage } from '../../../shared/hooks/useLanguage';
 import '../Pause.css';
 
 export function PauseMenu({ onResume, onRestart, onExit }) {
   const { playClick, playHover } = useSound();
+  const { t } = useLanguage();
 
   const handleResume = () => {
     playClick();
@@ -22,7 +24,7 @@ export function PauseMenu({ onResume, onRestart, onExit }) {
   return (
     <div className="pause-overlay">
       <div className="pause-menu">
-        <h2 className="pause-title">Paused</h2>
+        <h2 className="pause-title">{t('pause.paused')}</h2>
         <div className="pause-buttons">
           <button 
             className="pause-button pause-button-resume"
@@ -30,7 +32,7 @@ export function PauseMenu({ onResume, onRestart, onExit }) {
             onMouseEnter={playHover}
           >
             <span className="material-icons-round">play_arrow</span>
-            Resume
+            {t('pause.resume')}
           </button>
           <button 
             className="pause-button pause-button-restart"
@@ -38,7 +40,7 @@ export function PauseMenu({ onResume, onRestart, onExit }) {
             onMouseEnter={playHover}
           >
             <span className="material-icons-round">refresh</span>
-            Restart
+            {t('pause.restart')}
           </button>
           <button 
             className="pause-button pause-button-exit"
@@ -46,7 +48,7 @@ export function PauseMenu({ onResume, onRestart, onExit }) {
             onMouseEnter={playHover}
           >
             <span className="material-icons-round">home</span>
-            Exit to Menu
+            {t('pause.exit')}
           </button>
         </div>
       </div>

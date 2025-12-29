@@ -1,10 +1,12 @@
 import { MenuButton } from './components/MenuButton';
 import { PlayButton } from './components/PlayButton';
 import { useSound } from '../../shared/hooks/useSound';
+import { useLanguage } from '../../shared/hooks/useLanguage';
 import './Menu.css';
 
 export function MainMenu({ onNavigate }) {
   const { ensureBgMusicPlaying } = useSound();
+  const { t } = useLanguage();
 
   const handleNavigation = (screen) => {
     // Ensure background music starts on first user interaction
@@ -39,12 +41,12 @@ export function MainMenu({ onNavigate }) {
           <div className="menu-title-container">
             <div className="menu-title-glow"></div>
             <h1 className="menu-title">
-              Vault <span className="menu-title-accent">88</span>
+              {t('mainMenu.title')} <span className="menu-title-accent">{t('mainMenu.titleAccent')}</span>
             </h1>
           </div>
           <div className="menu-subtitle-container">
             <div className="menu-subtitle-line"></div>
-            <p className="menu-subtitle">Logic Puzzle</p>
+            <p className="menu-subtitle">{t('mainMenu.subtitle')}</p>
             <div className="menu-subtitle-line"></div>
           </div>
         </header>
@@ -56,22 +58,22 @@ export function MainMenu({ onNavigate }) {
           <div className="menu-buttons">
             <MenuButton
               icon="analytics"
-              label="Statistics"
+              label={t('mainMenu.statistics')}
               onClick={() => handleNavigation('leaderboard')}
             />
             <MenuButton
               icon="favorite"
-              label="Buy Me a Coffee"
+              label={t('mainMenu.buyMeACoffee')}
               onClick={() => handleNavigation('support')}
             />
             <MenuButton
               icon="code"
-              label="Source Code"
+              label={t('mainMenu.sourceCode')}
               onClick={() => handleNavigation('source')}
             />
             <MenuButton
               icon="settings"
-              label="Settings"
+              label={t('mainMenu.settings')}
               onClick={() => handleNavigation('settings')}
             />
           </div>

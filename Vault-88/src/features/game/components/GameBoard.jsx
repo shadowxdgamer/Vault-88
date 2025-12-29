@@ -1,4 +1,5 @@
 import { useSound } from '../../../shared/hooks/useSound';
+import { useLanguage } from '../../../shared/hooks/useLanguage';
 import { DigitBox } from './DigitBox';
 import { HintRow } from './HintRow';
 import { formatTime } from '../utils/scoreCalculator';
@@ -7,6 +8,7 @@ import '../Pause.css';
 
 export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode }) {
   const { playUnlock, playWrong, playClick } = useSound();
+  const { t } = useLanguage();
 
   const handleUnlock = () => {
     const result = onUnlock();
@@ -54,7 +56,7 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
             <span className="material-icons-round">arrow_back</span>
           </button>
           <div className="game-header-center">
-            <h1 className="game-title">Crack the Code</h1>
+            <h1 className="game-title">{t('game.title')}</h1>
             <div className="game-stats">
               <div className="stat-item">
                 <span className="material-icons-round stat-icon">timer</span>
@@ -90,7 +92,7 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
           <div className="hints-panel glass-panel">
             <div className="hints-scroll-area custom-scrollbar">
               {hints.map((hint, idx) => (
-                <HintRow key={idx} digits={hint.digits} text={hint.text} />
+                <HintRow key={idx} digits={hint.digits} text={hint.text} type={hint.type} />
               ))}
             </div>
           </div>
@@ -102,14 +104,14 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
             disabled={hintsUsed >= 2}
           >
             <span className="material-icons-round">lightbulb</span>
-            <span>Request Hint ({hintsUsed}/2)</span>
-            <span className="hint-cost">-25 pts</span>
+            <span>{t('game.requestHint')} ({hintsUsed}/2)</span>
+            <span className="hint-cost">-25 {t('difficulty.points')}</span>
           </button>
 
           {/* Unlock Button */}
           <button onClick={handleUnlock} className="unlock-button">
             <div className="unlock-button-shine"></div>
-            Unlock
+            {t('game.unlock')}
           </button>
 
           {/* Message */}

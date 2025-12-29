@@ -3,12 +3,14 @@ import { GameBoard } from './components/GameBoard';
 import { PauseMenu } from './components/PauseMenu';
 import { WinModal } from './components/WinModal';
 import { useGameLogic } from './hooks/useGameLogic';
+import { useLanguage } from '../../shared/hooks/useLanguage';
 import { MODE_CONFIG } from '../../shared/utils/constants';
 import { calculateScore, getScoreBreakdown, formatTime } from './utils/scoreCalculator';
 import { saveHighScore, getHighScore } from './utils/highScoreManager';
 import { recordWin, recordGamePlayed } from './utils/progressionManager';
 
 export function GameScreen({ onExit, difficulty }) {
+  const { t } = useLanguage();
   const digitCount = MODE_CONFIG[difficulty].digits;
   const baseScore = MODE_CONFIG[difficulty].baseScore;
   const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, revealedDigits, hintsUsed, secretCode, changeDigit, checkCode, resetGame, revealHint } = useGameLogic(digitCount);
@@ -52,10 +54,10 @@ export function GameScreen({ onExit, difficulty }) {
       const isPerfect = wrongAttempts === 0;
       recordWin(difficulty, isPerfect, hintsUsed);
       
-      setMessage('UNLOCKED!');
+      setMessage(t('game.unlocked'));
       setShowWinModal(true);
     } else {
-      setMessage('ACCESS DENIED. TRY AGAIN.');
+      setMessage(t('game.accessDenied'));
     }
     
     return won;

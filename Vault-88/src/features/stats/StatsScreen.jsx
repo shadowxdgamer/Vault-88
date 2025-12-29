@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSound } from '../../shared/hooks/useSound';
+import { useLanguage } from '../../shared/hooks/useLanguage';
 import { getStats, getWinRate, getDifficultyWinRate, getAchievements } from '../game/utils/progressionManager';
 import { getAllHighScores } from '../game/utils/highScoreManager';
 import './Stats.css';
 
 export function StatsScreen({ onBack }) {
   const { playClick } = useSound();
+  const { t } = useLanguage();
   const [stats, setStats] = useState(getStats());
   const [winRate, setWinRate] = useState(getWinRate());
   const [achievements, setAchievements] = useState(getAchievements());
@@ -43,7 +45,7 @@ export function StatsScreen({ onBack }) {
           <button className="back-button" onClick={handleBack}>
             <span className="material-icons-round">arrow_back</span>
           </button>
-          <h1 className="stats-title">Statistics</h1>
+          <h1 className="stats-title">{t('stats.title')}</h1>
           <div style={{ width: '40px' }}></div>
         </header>
 
@@ -54,19 +56,19 @@ export function StatsScreen({ onBack }) {
             <div className="stat-card glass-panel">
               <span className="material-icons-round stat-card-icon">sports_esports</span>
               <div className="stat-card-value">{stats.totalGamesPlayed}</div>
-              <div className="stat-card-label">Games Played</div>
+              <div className="stat-card-label">{t('stats.gamesPlayed')}</div>
             </div>
             
             <div className="stat-card glass-panel">
               <span className="material-icons-round stat-card-icon">emoji_events</span>
               <div className="stat-card-value">{stats.totalWins}</div>
-              <div className="stat-card-label">Total Wins</div>
+              <div className="stat-card-label">{t('stats.totalWins')}</div>
             </div>
             
             <div className="stat-card glass-panel">
               <span className="material-icons-round stat-card-icon">percent</span>
               <div className="stat-card-value">{winRate}%</div>
-              <div className="stat-card-label">Win Rate</div>
+              <div className="stat-card-label">{t('stats.winRate')}</div>
             </div>
           </div>
 
@@ -74,19 +76,19 @@ export function StatsScreen({ onBack }) {
           <div className="stats-section glass-panel">
             <h2 className="section-title">
               <span className="material-icons-round">local_fire_department</span>
-              <span>Streaks</span>
+              <span>{t('stats.streaks')}</span>
             </h2>
             <div className="stats-grid">
               <div className="stat-item">
-                <div className="stat-item-label">Current Streak</div>
+                <div className="stat-item-label">{t('stats.currentStreak')}</div>
                 <div className="stat-item-value highlight">{stats.currentStreak}</div>
               </div>
               <div className="stat-item">
-                <div className="stat-item-label">Best Streak</div>
+                <div className="stat-item-label">{t('stats.bestStreak')}</div>
                 <div className="stat-item-value">{stats.bestStreak}</div>
               </div>
               <div className="stat-item">
-                <div className="stat-item-label">Perfect Wins</div>
+                <div className="stat-item-label">{t('stats.perfectWins')}</div>
                 <div className="stat-item-value">{stats.perfectWins}</div>
               </div>
             </div>
@@ -96,19 +98,19 @@ export function StatsScreen({ onBack }) {
           <div className="stats-section glass-panel">
             <h2 className="section-title">
               <span className="material-icons-round">stars</span>
-              <span>High Scores</span>
+              <span>{t('stats.highScores')}</span>
             </h2>
             <div className="highscore-list">
               <div className="highscore-item">
-                <div className="difficulty-badge easy">Easy</div>
+                <div className="difficulty-badge easy">{t('difficulty.easy')}</div>
                 <div className="highscore-value">{highScores.EASY || 0}</div>
               </div>
               <div className="highscore-item">
-                <div className="difficulty-badge medium">Medium</div>
+                <div className="difficulty-badge medium">{t('difficulty.medium')}</div>
                 <div className="highscore-value">{highScores.MEDIUM || 0}</div>
               </div>
               <div className="highscore-item">
-                <div className="difficulty-badge hard">Hard</div>
+                <div className="difficulty-badge hard">{t('difficulty.hard')}</div>
                 <div className="highscore-value">{highScores.HARD || 0}</div>
               </div>
             </div>
@@ -118,7 +120,7 @@ export function StatsScreen({ onBack }) {
           <div className="stats-section glass-panel">
             <h2 className="section-title">
               <span className="material-icons-round">analytics</span>
-              <span>Performance by Difficulty</span>
+              <span>{t('stats.performanceByDifficulty')}</span>
             </h2>
             <div className="difficulty-stats">
               {['EASY', 'MEDIUM', 'HARD'].map((diff) => {
@@ -127,20 +129,20 @@ export function StatsScreen({ onBack }) {
                 return (
                   <div key={diff} className="difficulty-stat-row">
                     <div className={`difficulty-badge ${diff.toLowerCase()}`}>
-                      {diff.charAt(0) + diff.slice(1).toLowerCase()}
+                      {t(`difficulty.${diff.toLowerCase()}`)}
                     </div>
                     <div className="difficulty-stat-details">
                       <div className="difficulty-stat-item">
                         <span>{diffStats.played}</span>
-                        <span className="stat-label-small">Played</span>
+                        <span className="stat-label-small">{t('stats.played')}</span>
                       </div>
                       <div className="difficulty-stat-item">
                         <span>{diffStats.wins}</span>
-                        <span className="stat-label-small">Wins</span>
+                        <span className="stat-label-small">{t('stats.wins')}</span>
                       </div>
                       <div className="difficulty-stat-item">
                         <span>{diffWinRate}%</span>
-                        <span className="stat-label-small">Win Rate</span>
+                        <span className="stat-label-small">{t('stats.winRate')}</span>
                       </div>
                     </div>
                   </div>
@@ -154,7 +156,7 @@ export function StatsScreen({ onBack }) {
             <div className="stats-section glass-panel">
               <h2 className="section-title">
                 <span className="material-icons-round">workspace_premium</span>
-                <span>Achievements ({achievements.length})</span>
+                <span>{t('stats.achievements')} ({achievements.length})</span>
               </h2>
               <div className="achievements-grid">
                 {achievements.map((achievement) => (

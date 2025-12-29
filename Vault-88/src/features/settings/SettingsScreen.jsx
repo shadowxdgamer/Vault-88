@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSound } from '../../shared/hooks/useSound';
 import { useLocalStorage } from '../../shared/hooks/useLocalStorage';
+import { useLanguage } from '../../shared/hooks/useLanguage';
 import './Settings.css';
 
 export function SettingsScreen({ onBack }) {
   const { setBgMusicVolume: updateBgMusicVolume, setSfxVolume: updateSfxVolume, playClick, playHover } = useSound();
+  const { t, language, setLanguage } = useLanguage();
   
   // Load saved volumes or use defaults
   const [bgmVolume, setBgmVolume] = useLocalStorage('bgm-volume', 30);
@@ -57,21 +59,21 @@ export function SettingsScreen({ onBack }) {
           >
             <span className="material-icons-round">arrow_back</span>
           </button>
-          <h1 className="settings-title">Settings</h1>
+          <h1 className="settings-title">{t('settings.title')}</h1>
           <div style={{ width: '2.5rem' }}></div> {/* Spacer for centering */}
         </header>
 
         {/* Main Content */}
         <main className="settings-main custom-scrollbar">
           <div className="settings-section">
-            <h2 className="settings-section-title">Audio</h2>
+            <h2 className="settings-section-title">{t('settings.audio')}</h2>
             
             {/* Background Music Volume */}
             <div className="volume-control glass-panel">
               <div className="volume-label-row">
                 <div className="volume-label">
                   <span className="material-icons-round volume-label-icon">music_note</span>
-                  <span>Background Music</span>
+                  <span>{t('settings.bgmVolume')}</span>
                 </div>
                 <span className="volume-value">{bgmVolume}%</span>
               </div>
@@ -91,7 +93,7 @@ export function SettingsScreen({ onBack }) {
               <div className="volume-label-row">
                 <div className="volume-label">
                   <span className="material-icons-round volume-label-icon">volume_up</span>
-                  <span>Sound Effects</span>
+                  <span>{t('settings.sfxVolume')}</span>
                 </div>
                 <span className="volume-value">{sfxVolume}%</span>
               </div>
@@ -106,11 +108,37 @@ export function SettingsScreen({ onBack }) {
               />
             </div>
           </div>
+
+          {/* Language Section */}
+          <div className="settings-section">
+            <h2 className="settings-section-title">{t('settings.language')}</h2>
+            
+            <div className="volume-control glass-panel">
+              <div className="volume-label-row">
+                <div className="volume-label">
+                  <span className="material-icons-round volume-label-icon">language</span>
+                  <span>{t('settings.selectLanguage')}</span>
+                </div>
+                <select 
+                  value={language} 
+                  onChange={(e) => {
+                    setLanguage(e.target.value);
+                    playClick();
+                  }}
+                  className="language-selector"
+                  onMouseEnter={playHover}
+                >
+                  <option value="en">English</option>
+                  <option value="ar">العربية</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </main>
 
         {/* Footer */}
         <footer className="settings-footer">
-          Changes are saved automatically
+          {t('settings.autoSave')}
         </footer>
 
         {/* Bottom Accent Line */}
