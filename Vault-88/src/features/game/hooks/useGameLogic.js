@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { generateSecretCode, generateHints } from '../utils/codeGenerator';
 
 export function useGameLogic(digitCount = 3) {
@@ -7,6 +7,16 @@ export function useGameLogic(digitCount = 3) {
   const [hints, setHints] = useState(() => generateHints(secretCode));
   const [isWon, setIsWon] = useState(false);
   const [attempts, setAttempts] = useState(0);
+
+  // Update game when digit count changes
+  useEffect(() => {
+    const newCode = generateSecretCode(digitCount);
+    setSecretCode(newCode);
+    setCurrentGuess(Array(digitCount).fill(0));
+    setHints(generateHints(newCode));
+    setIsWon(false);
+    setAttempts(0);
+  }, [digitCount]);
 
   const changeDigit = (index) => {
     const newGuess = [...currentGuess];

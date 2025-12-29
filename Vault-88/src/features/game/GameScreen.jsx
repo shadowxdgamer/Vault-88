@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { GameBoard } from './components/GameBoard';
 import { PauseMenu } from './components/PauseMenu';
 import { useGameLogic } from './hooks/useGameLogic';
+import { MODE_CONFIG } from '../../shared/utils/constants';
 
-export function GameScreen({ onExit }) {
-  const { currentGuess, hints, isWon, changeDigit, checkCode, resetGame } = useGameLogic(3);
+export function GameScreen({ onExit, difficulty }) {
+  const digitCount = MODE_CONFIG[difficulty].digits;
+  const { currentGuess, hints, isWon, changeDigit, checkCode, resetGame } = useGameLogic(digitCount);
   const [message, setMessage] = useState('');
   const [showWinModal, setShowWinModal] = useState(false);
   const [isPaused, setIsPaused] = useState(false);

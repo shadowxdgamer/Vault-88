@@ -1,0 +1,264 @@
+/* Difficulty Selector Styles */
+.difficulty-screen {
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  background-color: #111827;
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.difficulty-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.difficulty-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.difficulty-background-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, 
+    rgba(26, 31, 46, 0.9) 0%, 
+    rgba(26, 31, 46, 0.7) 50%, 
+    rgba(26, 31, 46, 0.9) 100%);
+}
+
+.difficulty-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  background-color: rgba(26, 31, 46, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(4px);
+}
+
+@media (min-width: 640px) {
+  .difficulty-container {
+    max-width: 32rem;
+    height: auto;
+    min-height: 650px;
+    max-height: 90vh;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .difficulty-container {
+    min-height: 750px;
+    border-radius: 40px;
+  }
+}
+
+.difficulty-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .difficulty-header {
+    padding: 1.5rem;
+  }
+}
+
+.difficulty-title {
+  flex: 1;
+  font-size: 1.5rem;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #e3d5ca;
+  text-transform: uppercase;
+  text-align: center;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.5));
+}
+
+@media (min-width: 640px) {
+  .difficulty-title {
+    font-size: 1.875rem;
+  }
+}
+
+.difficulty-main {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 0;
+}
+
+@media (min-width: 640px) {
+  .difficulty-main {
+    padding: 2rem;
+    gap: 1.25rem;
+  }
+}
+
+.difficulty-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card {
+    padding: 2rem;
+  }
+}
+
+.difficulty-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: currentColor;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-4px);
+  border-color: currentColor;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-card:hover::before {
+  opacity: 1;
+}
+
+.difficulty-card:active {
+  transform: translateY(-2px);
+}
+
+.difficulty-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card-header {
+    margin-bottom: 1rem;
+  }
+}
+
+.difficulty-card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: currentColor;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 2rem;
+  }
+}
+
+.difficulty-card-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: white;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card-title {
+    font-size: 1.75rem;
+  }
+}
+
+.difficulty-card-description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card-description {
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.difficulty-card-stats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Courier New', monospace;
+}
+
+@media (min-width: 640px) {
+  .difficulty-card-stats {
+    font-size: 0.8125rem;
+  }
+}
+
+.difficulty-card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.difficulty-card-stat-icon {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Difficulty specific colors */
+.difficulty-card.easy {
+  color: #4ade80;
+}
+
+.difficulty-card.medium {
+  color: #38bdf8;
+}
+
+.difficulty-card.hard {
+  color: #f87171;
+}

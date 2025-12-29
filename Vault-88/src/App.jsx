@@ -3,12 +3,15 @@ import { ThemeProvider } from './shared/hooks/useTheme';
 import { useSound } from './shared/hooks/useSound';
 import { MainMenu } from './features/menu/MainMenu';
 import { GameScreen } from './features/game/GameScreen';
+import { DifficultySelector } from './features/difficulty/DifficultySelector';
 import { SettingsScreen } from './features/settings/SettingsScreen';
 import { Placeholder } from './shared/components/Placeholder';
+import { GAME_MODES } from './shared/utils/constants';
 import './App.css';
 
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState('menu');
+  const [selectedDifficulty, setSelectedDifficulty] = useState(GAME_MODES.EASY);
   const { playBgMusic } = useSound();
 
   // Start background music on mount
@@ -25,8 +28,23 @@ function AppContent() {
     switch (currentScreen) {
       case 'menu':
         return <MainMenu onNavigate={setCurrentScreen} />;
+      case 'difficulty':
+        return (
+          <DifficultySelector 
+            onSelect={(difficulty) => {
+              setSelectedDifficulty(difficulty);
+              setCurrentScreen('play');
+            }}
+            onBack={() => setCurrentScreen('menu')}
+          />
+        );
       case 'play':
-        return <GameScreen onExit={() => setCurrentScreen('menu')} />;
+        return (
+          <GameScreen 
+            difficulty={selectedDifficulty}
+            onExit={() => setCurrentScreen('menu')} 
+          />
+        );
       case 'leaderboard':
         return <Placeholder title="Leaderboard" onBack={() => setCurrentScreen('menu')} />;
       case 'settings':

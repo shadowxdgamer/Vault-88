@@ -1,10 +1,8 @@
 // Game difficulty modes
 export const GAME_MODES = {
   EASY: 'easy',
-  NORMAL: 'normal',
+  MEDIUM: 'medium',
   HARD: 'hard',
-  ENDLESS: 'endless',
-  TIME_ATTACK: 'time_attack',
 };
 
 // Game mode configurations
@@ -12,32 +10,29 @@ export const MODE_CONFIG = {
   [GAME_MODES.EASY]: {
     name: 'Easy',
     digits: 3,
-    timeLimit: null,
-    description: 'Perfect for beginners',
+    hintsCount: 4,
+    baseScore: 100,
+    description: '3 digits - Perfect for beginners',
+    icon: 'sentiment_satisfied',
+    color: '#4ade80'
   },
-  [GAME_MODES.NORMAL]: {
-    name: 'Normal',
-    digits: 3,
-    timeLimit: null,
-    description: 'Standard challenge',
+  [GAME_MODES.MEDIUM]: {
+    name: 'Medium',
+    digits: 4,
+    hintsCount: 5,
+    baseScore: 250,
+    description: '4 digits - Standard challenge',
+    icon: 'sports_esports',
+    color: '#38bdf8'
   },
   [GAME_MODES.HARD]: {
     name: 'Hard',
-    digits: 4,
-    timeLimit: null,
-    description: 'Expert level',
-  },
-  [GAME_MODES.ENDLESS]: {
-    name: 'Endless',
-    digits: 3,
-    timeLimit: null,
-    description: 'Solve as many as you can',
-  },
-  [GAME_MODES.TIME_ATTACK]: {
-    name: 'Time Attack',
-    digits: 3,
-    timeLimit: 60,
-    description: 'Beat the clock',
+    digits: 5,
+    hintsCount: 5,
+    baseScore: 500,
+    description: '5 digits - Expert level puzzle',
+    icon: 'local_fire_department',
+    color: '#f87171'
   },
 };
 

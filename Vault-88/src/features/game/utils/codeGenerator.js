@@ -1,4 +1,48 @@
 /**
+ * Hint text variations for different hint types
+ */
+const HINT_TEXTS = {
+  'correct-position': [
+    'One digit is correct and well placed.',
+    'Exactly one digit is in the correct position.',
+    'One digit locked in the right spot.',
+    'You\'ve placed one digit correctly.',
+    'Single digit: right number, right place.'
+  ],
+  'correct-wrong-position': [
+    'One digit is correct but wrongly placed.',
+    'One correct digit, wrong spot.',
+    'Single digit needs repositioning.',
+    'You have one digit - move it.',
+    'One match in incorrect position.'
+  ],
+  'two-wrong-positions': [
+    'Two digits are correct but wrongly placed.',
+    'Two digits are present but misplaced.',
+    'Two correct numbers, wrong positions.',
+    'You have two digits - rearrange them.',
+    'Two matches, both in wrong spots.'
+  ],
+  'all-wrong': [
+    'Nothing is correct.',
+    'All digits are incorrect.',
+    'None of these digits appear in the code.',
+    'Complete miss - try different numbers.',
+    'Zero matches detected.'
+  ]
+};
+
+/**
+ * Get a random hint text for a given hint type
+ * @param {string} type - Hint type
+ * @returns {string} Random hint text
+ */
+function getRandomHintText(type) {
+  const texts = HINT_TEXTS[type];
+  return texts[Math.floor(Math.random() * texts.length)];
+}
+
+/**
  * Generate a secret code with unique digits
  * @param {number} length - Number of digits in the code
  * @returns {number[]} Array of unique digits
@@ -68,7 +112,7 @@ export function generateHints(secretCode) {
   const h1_set = generateHintWithCorrectDigit(secretCode, h1_idx, h1_val);
   hints.push({
     digits: h1_set,
-    text: 'One digit is correct and well placed.',
+    text: getRandomHintText('correct-position'),
     type: 'correct-position'
   });
   
@@ -79,7 +123,7 @@ export function generateHints(secretCode) {
   const h2_set = generateHintWithCorrectDigit(secretCode, h2_idx_hint, h2_val);
   hints.push({
     digits: h2_set,
-    text: 'One digit is correct but wrongly placed.',
+    text: getRandomHintText('correct-wrong-position'),
     type: 'correct-wrong-position'
   });
   
@@ -116,7 +160,7 @@ export function generateHints(secretCode) {
   
   hints.push({
     digits: h3_set,
-    text: 'Two digits are correct but wrongly placed.',
+    text: getRandomHintText('two-wrong-positions'),
     type: 'two-wrong-positions'
   });
   
@@ -130,7 +174,7 @@ export function generateHints(secretCode) {
   }
   hints.push({
     digits: h4_set,
-    text: 'Nothing is correct.',
+    text: getRandomHintText('all-wrong'),
     type: 'all-wrong'
   });
   
