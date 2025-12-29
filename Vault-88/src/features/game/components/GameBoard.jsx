@@ -2,9 +2,10 @@ import { useSound } from '../../../shared/hooks/useSound';
 import { DigitBox } from './DigitBox';
 import { HintRow } from './HintRow';
 import '../Game.css';
+import '../Pause.css';
 
-export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon }) {
-  const { playUnlock, playCorrect, playWrong } = useSound();
+export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause }) {
+  const { playUnlock, playCorrect, playWrong, playClick } = useSound();
 
   const handleUnlock = () => {
     playUnlock();
@@ -18,6 +19,16 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
         playWrong();
       }
     }, 200);
+  };
+
+  const handleBack = () => {
+    playClick();
+    onBack();
+  };
+
+  const handlePause = () => {
+    playClick();
+    onPause();
   };
 
   return (
@@ -36,7 +47,13 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
       <div className="game-container">
         {/* Header */}
         <header className="game-header">
+          <button className="back-button" onClick={handleBack} aria-label="Back to menu">
+            <span className="material-icons-round">arrow_back</span>
+          </button>
           <h1 className="game-title">Crack the Code</h1>
+          <button className="pause-icon-button" onClick={handlePause} aria-label="Pause game">
+            <span className="material-icons-round">pause</span>
+          </button>
         </header>
 
         {/* Main Content */}
@@ -62,7 +79,7 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
           </div>
 
           {/* Unlock Button */}
-          <button onClick={onUnlock} className="unlock-button">
+          <button onClick={handleUnlock} className="unlock-button">
             <div className="unlock-button-shine"></div>
             Unlock
           </button>

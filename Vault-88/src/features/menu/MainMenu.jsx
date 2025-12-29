@@ -3,6 +3,16 @@ import { PlayButton } from './components/PlayButton';
 import './Menu.css';
 
 export function MainMenu({ onNavigate }) {
+  const handleNavigation = (screen) => {
+    if (screen === 'support') {
+      window.open('https://buymeacoffee.com/shadowxdgamer', '_blank');
+    } else if (screen === 'source') {
+      window.open('https://github.com/shadowxdgamer/Vault-88', '_blank');
+    } else {
+      onNavigate(screen);
+    }
+  };
+
   return (
     <div className="menu-screen">
       {/* Background */}
@@ -41,22 +51,22 @@ export function MainMenu({ onNavigate }) {
             <MenuButton
               icon="leaderboard"
               label="Leaderboard"
-              onClick={() => onNavigate('leaderboard')}
+              onClick={() => handleNavigation('leaderboard')}
             />
             <MenuButton
-              icon="support_agent"
-              label="Support"
-              onClick={() => window.open('https://www.buymeacoffee.com', '_blank')}
+              icon="favorite"
+              label="Buy Me a Coffee"
+              onClick={() => handleNavigation('support')}
             />
             <MenuButton
               icon="code"
-              label="Source"
-              onClick={() => window.open('https://github.com/yourusername/vault-88', '_blank')}
+              label="Source Code"
+              onClick={() => handleNavigation('source')}
             />
             <MenuButton
               icon="settings"
               label="Settings"
-              onClick={() => onNavigate('settings')}
+              onClick={() => handleNavigation('settings')}
             />
           </div>
         </main>
@@ -65,7 +75,7 @@ export function MainMenu({ onNavigate }) {
         <div className="menu-footer">
           <div className="menu-footer-content">
             <span>SECURE CONNECTION ESTABLISHED</span>
-            <span>V 2.0.4</span>
+            <span>V 1.0.0</span>
           </div>
         </div>
 

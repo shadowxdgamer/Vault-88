@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { GameBoard } from './components/GameBoard';
+import { PauseMenu } from './components/PauseMenu';
 import { useGameLogic } from './hooks/useGameLogic';
 
 export function GameScreen({ onExit }) {
   const { currentGuess, hints, isWon, changeDigit, checkCode, resetGame } = useGameLogic(3);
   const [message, setMessage] = useState('');
   const [showWinModal, setShowWinModal] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const handleDigitChange = (index) => {
     changeDigit(index);
@@ -31,6 +33,20 @@ export function GameScreen({ onExit }) {
     resetGame();
   };
 
+  const handlePause = () => {
+    setIsPaused(true);
+  };
+
+  const handleResume = () => {
+    setIsPaused(false);
+  };
+
+  const handleRestart = () => {
+    setIsPaused(false);
+    setMessage('');
+    resetGame();
+  };
+
   return (
     <>
       <GameBoard
@@ -40,7 +56,18 @@ export function GameScreen({ onExit }) {
         onUnlock={handleUnlock}
         message={message}
         isWon={isWon}
+        onBack={onExit}
+        onPause={handlePause}
       />
+
+      {/* Pause Menu */}
+      {isPaused && (
+        <PauseMenu
+          onResume={handleResume}
+          onRestart={handleRestart}
+          onExit={onExit}
+        />
+      )}
 
       {/* Win Modal */}
       {showWinModal && (

@@ -1,92 +1,115 @@
 import { Howl } from 'howler';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 // Sound effect paths
 const SOUNDS = {
   click: '/sfx/click.wav',
+  hover: '/sfx/hover.wav',
   unlock: '/sfx/unlock.wav',
   wrong: '/sfx/wrong.wav',
   correct: '/sfx/correct.wav',
-  bgMusic: '/bg-music/track 1.wav',
+  bgMusic: '/bg-music/track1.wav',
 };
 
 // Create Howl instances
 const soundInstances = {
   click: null,
+  hover: null,
   unlock: null,
   wrong: null,
   correct: null,
   bgMusic: null,
 };
 
+let initialized = false;
+
 // Initialize sound instances
 const initSounds = () => {
-  if (!soundInstances.click) {
-    soundInstances.click = new Howl({
-      src: [SOUNDS.click],
-      volume: 0.5,
-      preload: true,
-    });
+  if (initialized) return;
+  
+  initialized = true;
+  
+  soundInstances.click = new Howl({
+    src: [SOUNDS.click],
+    volume: 0.5,
+    preload: true,
+    html5: false,
+  });
 
-    soundInstances.unlock = new Howl({
-      src: [SOUNDS.unlock],
-      volume: 0.6,
-      preload: true,
-    });
+  soundInstances.hover = new Howl({
+    src: [SOUNDS.hover],
+    volume: 0.3,
+    preload: true,
+    html5: false,
+  });
 
-    soundInstances.wrong = new Howl({
-      src: [SOUNDS.wrong],
-      volume: 0.7,
-      preload: true,
-    });
+  soundInstances.unlock = new Howl({
+    src: [SOUNDS.unlock],
+    volume: 0.6,
+    preload: true,
+    html5: false,
+  });
 
-    soundInstances.correct = new Howl({
-      src: [SOUNDS.correct],
-      volume: 0.7,
-      preload: true,
-    });
+  soundInstances.wrong = new Howl({
+    src: [SOUNDS.wrong],
+    volume: 0.7,
+    preload: true,
+    html5: false,
+  });
 
-    soundInstances.bgMusic = new Howl({
-      src: [SOUNDS.bgMusic],
-      volume: 0.3,
-      loop: true,
-      preload: true,
-    });
-  }
+  soundInstances.correct = new Howl({
+    src: [SOUNDS.correct],
+    volume: 0.7,
+    preload: true,
+    html5: false,
+  });
+
+  soundInstances.bgMusic = new Howl({
+    src: [SOUNDS.bgMusic],
+    volume: 0.3,
+    loop: true,
+    preload: true,
+    html5: true,
+  });
 };
 
 /**
  * Custom hook for managing sound effects and background music
  */
 export const useSound = () => {
-  const bgMusicRef = useRef(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // Initialize sounds on mount
-    initSounds();
+    if (!initialized) {
+      initSounds();
+      setIsReady(true);
+    }
 
     return () => {
-      // Cleanup: stop all sounds on unmount
-      Object.values(soundInstances).forEach(sound => {
-        if (sound) {
-          sound.stop();
-        }
-      });
+      // Don't cleanup global sounds
     };
   }, []);
 
   const playSound = (soundName) => {
-    initSounds();
-    const sound = soundInstances[soundName];
-    if (sound) {
-      sound.play();
+    try {
+      const sound = soundInstances[soundName];
+      if (sound && sound.state() === 'loaded') {
+        sound.stop();
+        sound.play();
+      }
+    } catch (error) {
+      console.error(`Error playing sound ${soundName}:`, error);
     }
   };
 
   const playBgMusic = () => {
-    initSounds();
-    if (soundInstances.bgMusic && !soundInstances.bgMusic.playing()) {
-      bgMusicRef.current = soundInstances.bgMusic.play();
+    try {
+      if (soundInstances.bgMusic && !soundInstances.bgMusic.playing()) {
+        soundInstances.bgMusic.play();
+      }
+    } catch (error) {
+      console.error('Error playing background music:', error);
     }
   };
 
@@ -109,7 +132,7 @@ export const useSound = () => {
   };
 
   const setSfxVolume = (volume) => {
-    ['click', 'unlock', 'wrong', 'correct'].forEach(soundName => {
+    ['click', 'hover', 'unlock', 'wrong', 'correct'].forEach(soundName => {
       if (soundInstances[soundName]) {
         soundInstances[soundName].volume(volume);
       }
@@ -118,6 +141,7 @@ export const useSound = () => {
 
   return {
     playClick: () => playSound('click'),
+    playHover: () => playSound('hover'),
     playUnlock: () => playSound('unlock'),
     playWrong: () => playSound('wrong'),
     playCorrect: () => playSound('correct'),
@@ -126,5 +150,6 @@ export const useSound = () => {
     stopBgMusic,
     setBgMusicVolume,
     setSfxVolume,
+    isReady,
   };
 };

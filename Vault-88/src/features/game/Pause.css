@@ -1,0 +1,195 @@
+/* Pause Menu Overlay */
+.pause-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pause-menu {
+  background: linear-gradient(135deg, rgba(26, 31, 46, 0.95), rgba(17, 24, 39, 0.95));
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  width: 90%;
+  max-width: 24rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.3s ease-out;
+}
+
+@media (min-width: 640px) {
+  .pause-menu {
+    padding: 2.5rem 2rem;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pause-title {
+  font-size: 1.875rem;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  color: #e3d5ca;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .pause-title {
+    font-size: 2.25rem;
+  }
+}
+
+.pause-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pause-button {
+  width: 100%;\n  padding: 1rem;
+  border-radius: 0.75rem;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  touch-action: manipulation;
+  min-height: 52px;
+}
+
+@media (min-width: 640px) {
+  .pause-button {
+    font-size: 1.125rem;
+  }
+}
+
+.pause-button-resume {
+  background-color: var(--accent-cyan);
+  color: #1f2937;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.pause-button-resume:hover {
+  background-color: #22d3ee;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+}
+
+.pause-button-resume:active {
+  transform: translateY(0);
+}
+
+.pause-button-restart {
+  background-color: rgba(139, 94, 60, 0.2);
+  color: #e3d5ca;
+  border: 1px solid rgba(139, 94, 60, 0.5);
+}
+
+.pause-button-restart:hover {
+  background-color: rgba(139, 94, 60, 0.4);
+  border-color: #8B5E3C;
+}
+
+.pause-button-restart:active {
+  background-color: rgba(139, 94, 60, 0.6);
+}
+
+.pause-button-exit {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pause-button-exit:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pause-button-exit:active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Back Button */
+.back-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.back-button:active {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(0.95);
+}
+
+.pause-icon-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pause-icon-button:hover {
+  background-color: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: var(--accent-cyan);
+}
+
+.pause-icon-button:active {
+  background-color: rgba(56, 189, 248, 0.3);
+  transform: scale(0.95);
+}
