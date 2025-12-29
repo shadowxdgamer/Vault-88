@@ -5,7 +5,7 @@
 const HIGH_SCORE_KEY_PREFIX = 'vault88-highscore-';
 
 export function saveHighScore(difficulty, score) {
-  const key = `${HIGH_SCORE_KEY_PREFIX}${difficulty}`;
+  const key = `${HIGH_SCORE_KEY_PREFIX}${difficulty.toUpperCase()}`;
   const currentHighScore = getHighScore(difficulty);
   
   if (score > currentHighScore) {
@@ -17,7 +17,7 @@ export function saveHighScore(difficulty, score) {
 }
 
 export function getHighScore(difficulty) {
-  const key = `${HIGH_SCORE_KEY_PREFIX}${difficulty}`;
+  const key = `${HIGH_SCORE_KEY_PREFIX}${difficulty.toUpperCase()}`;
   const stored = localStorage.getItem(key);
   return stored ? parseInt(stored, 10) : 0;
 }

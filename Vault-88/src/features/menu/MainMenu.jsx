@@ -49,8 +49,8 @@ export function MainMenu({ onNavigate }) {
 
           <div className="menu-buttons">
             <MenuButton
-              icon="leaderboard"
-              label="Leaderboard"
+              icon="analytics"
+              label="Statistics"
               onClick={() => handleNavigation('leaderboard')}
             />
             <MenuButton

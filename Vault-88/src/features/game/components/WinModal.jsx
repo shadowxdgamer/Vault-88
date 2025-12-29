@@ -1,10 +1,12 @@
 import { useSound } from '../../../shared/hooks/useSound';
 import { formatTime, getScoreBreakdown } from '../utils/scoreCalculator';
+import { getStats } from '../utils/progressionManager';
 import './WinModal.css';
 
 export function WinModal({ score, time, wrongAttempts, hintsUsed, baseScore, isNewHighScore, highScore, onPlayAgain, onExit }) {
   const { playClick } = useSound();
   const breakdown = getScoreBreakdown(baseScore, wrongAttempts, time, hintsUsed);
+  const stats = getStats();
 
   const handlePlayAgain = () => {
     playClick();
@@ -77,6 +79,14 @@ export function WinModal({ score, time, wrongAttempts, hintsUsed, baseScore, isN
             </div>
           )}
         </div>
+
+        {/* Streak Info */}
+        {stats.currentStreak > 1 && (
+          <div className="streak-info">
+            <span className="material-icons-round">local_fire_department</span>
+            <span>{stats.currentStreak} Win Streak!</span>
+          </div>
+        )}
 
         {/* Buttons */}
         <div className="win-modal-buttons">

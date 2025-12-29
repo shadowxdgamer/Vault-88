@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { GameBoard } from './components/GameBoard';
 import { PauseMenu } from './components/PauseMenu';
 import { WinModal } from './components/WinModal';
@@ -6,6 +6,7 @@ import { useGameLogic } from './hooks/useGameLogic';
 import { MODE_CONFIG } from '../../shared/utils/constants';
 import { calculateScore, getScoreBreakdown, formatTime } from './utils/scoreCalculator';
 import { saveHighScore, getHighScore } from './utils/highScoreManager';
+import { recordWin, recordGamePlayed } from './utils/progressionManager';
 
 export function GameScreen({ onExit, difficulty }) {
   const digitCount = MODE_CONFIG[difficulty].digits;
@@ -22,6 +23,11 @@ export function GameScreen({ onExit, difficulty }) {
   const currentScore = useMemo(() => {
     return calculateScore(baseScore, wrongAttempts, elapsedTime, hintsUsed);
   }, [baseScore, wrongAttempts, elapsedTime, hintsUsed]);
+
+  // Record game played on mount
+  useEffect(() => {
+    recordGamePlayed(difficulty);
+  }, [difficulty]);
 
   const handleDigitChange = (index) => {
     changeDigit(index);
@@ -41,6 +47,10 @@ export function GameScreen({ onExit, difficulty }) {
       if (isNew) {
         setHighScore(score);
       }
+      
+      // Record win in progression system
+      const isPerfect = wrongAttempts === 0;
+      recordWin(difficulty, isPerfect, hintsUsed);
       
       setMessage('UNLOCKED!');
       setShowWinModal(true);

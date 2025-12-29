@@ -5,6 +5,7 @@ import { MainMenu } from './features/menu/MainMenu';
 import { GameScreen } from './features/game/GameScreen';
 import { DifficultySelector } from './features/difficulty/DifficultySelector';
 import { SettingsScreen } from './features/settings/SettingsScreen';
+import { StatsScreen } from './features/stats/StatsScreen';
 import { Placeholder } from './shared/components/Placeholder';
 import { GAME_MODES } from './shared/utils/constants';
 import './App.css';
@@ -46,7 +47,7 @@ function AppContent() {
           />
         );
       case 'leaderboard':
-        return <Placeholder title="Leaderboard" onBack={() => setCurrentScreen('menu')} />;
+        return <StatsScreen onBack={() => setCurrentScreen('menu')} />;
       case 'settings':
         return <SettingsScreen onBack={() => setCurrentScreen('menu')} />;
       default:

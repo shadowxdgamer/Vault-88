@@ -32,6 +32,7 @@ const initSounds = () => {
     volume: 0.5,
     preload: true,
     html5: false,
+    pool: 5,
   });
 
   soundInstances.hover = new Howl({
@@ -39,6 +40,7 @@ const initSounds = () => {
     volume: 0.3,
     preload: true,
     html5: false,
+    pool: 10,
   });
 
   soundInstances.unlock = new Howl({
@@ -46,6 +48,7 @@ const initSounds = () => {
     volume: 0.6,
     preload: true,
     html5: false,
+    pool: 3,
   });
 
   soundInstances.wrong = new Howl({
@@ -53,6 +56,7 @@ const initSounds = () => {
     volume: 0.7,
     preload: true,
     html5: false,
+    pool: 3,
   });
 
   soundInstances.bgMusic = new Howl({
