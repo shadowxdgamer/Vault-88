@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { GameBoard } from './components/GameBoard';
 import { PauseMenu } from './components/PauseMenu';
+import { WinModal } from './components/WinModal';
 import { useGameLogic } from './hooks/useGameLogic';
 import { MODE_CONFIG } from '../../shared/utils/constants';
+import { calculateScore, getScoreBreakdown, formatTime } from './utils/scoreCalculator';
+import { saveHighScore, getHighScore } from './utils/highScoreManager';
 
 export function GameScreen({ onExit, difficulty }) {
   const digitCount = MODE_CONFIG[difficulty].digits;
-  const { currentGuess, hints, isWon, changeDigit, checkCode, resetGame } = useGameLogic(digitCount);
+  const baseScore = MODE_CONFIG[difficulty].baseScore;
+  const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, changeDigit, checkCode, resetGame } = useGameLogic(digitCount);
   const [message, setMessage] = useState('');
   const [showWinModal, setShowWinModal] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+  const [isNewHighScore, setIsNewHighScore] = useState(false);
+  const [highScore, setHighScore] = useState(() => getHighScore(difficulty));
+
+  // Calculate current score in real-time
+  const currentScore = useMemo(() => {
+    return calculateScore(baseScore, wrongAttempts, elapsedTime);
+  }, [baseScore, wrongAttempts, elapsedTime]);
 
   const handleDigitChange = (index) => {
     changeDigit(index);
@@ -20,6 +32,16 @@ export function GameScreen({ onExit, difficulty }) {
     const won = checkCode();
     
     if (won) {
+      const score = calculateScore(baseScore, wrongAttempts, elapsedTime);
+      setFinalScore(score);
+      
+      // Check and save high score
+      const isNew = saveHighScore(difficulty, score);
+      setIsNewHighScore(isNew);
+      if (isNew) {
+        setHighScore(score);
+      }
+      
       setMessage('UNLOCKED!');
       setShowWinModal(true);
     } else {
@@ -60,6 +82,8 @@ export function GameScreen({ onExit, difficulty }) {
         isWon={isWon}
         onBack={onExit}
         onPause={handlePause}
+        score={currentScore}
+        time={elapsedTime}
       />
 
       {/* Pause Menu */}
@@ -73,28 +97,16 @@ export function GameScreen({ onExit, difficulty }) {
 
       {/* Win Modal */}
       {showWinModal && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-          <div className="bg-white text-gray-900 p-12 rounded-3xl text-center max-w-md">
-            <h2 className="text-5xl font-bold mb-4">UNLOCKED!</h2>
-            <p className="text-lg mb-8">You cracked the security system.</p>
-            <div className="flex gap-4 justify-center">
-              <button
-                onClick={handlePlayAgain}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full uppercase tracking-wider transition-all"
-              >
-                Play Again
-              </button>
-              {onExit && (
-                <button
-                  onClick={onExit}
-                  className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full uppercase tracking-wider transition-all"
-                >
-                  Main Menu
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+        <WinModal
+          score={finalScore}
+          time={elapsedTime}
+          wrongAttempts={wrongAttempts}
+          baseScore={baseScore}
+          isNewHighScore={isNewHighScore}
+          highScore={highScore}
+          onPlayAgain={handlePlayAgain}
+          onExit={onExit}
+        />
       )}
     </>
   );

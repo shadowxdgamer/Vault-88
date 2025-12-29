@@ -1,10 +1,11 @@
 import { useSound } from '../../../shared/hooks/useSound';
 import { DigitBox } from './DigitBox';
 import { HintRow } from './HintRow';
+import { formatTime } from '../utils/scoreCalculator';
 import '../Game.css';
 import '../Pause.css';
 
-export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause }) {
+export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time }) {
   const { playUnlock, playWrong, playClick } = useSound();
 
   const handleUnlock = () => {
@@ -47,7 +48,19 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
           <button className="back-button" onClick={handleBack} aria-label="Back to menu">
             <span className="material-icons-round">arrow_back</span>
           </button>
-          <h1 className="game-title">Crack the Code</h1>
+          <div className="game-header-center">
+            <h1 className="game-title">Crack the Code</h1>
+            <div className="game-stats">
+              <div className="stat-item">
+                <span className="material-icons-round stat-icon">timer</span>
+                <span className="stat-value">{formatTime(time)}</span>
+              </div>
+              <div className="stat-item">
+                <span className="material-icons-round stat-icon">stars</span>
+                <span className="stat-value">{score}</span>
+              </div>
+            </div>
+          </div>
           <button className="pause-icon-button" onClick={handlePause} aria-label="Pause game">
             <span className="material-icons-round">pause</span>
           </button>
