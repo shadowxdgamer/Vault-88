@@ -5,13 +5,13 @@ Vault 88 is a premium "Cyber-Rustic" logic puzzle game. It combines the tactile 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="screenshots/homepage.jpeg" alt="Main Menu" width="400"/>
-  <img src="screenshots/difficulty-select.jpeg" alt="Gameplay" width="400"/>
+  <img src="Vault-88/screenshots/homepage.jpeg" alt="Main Menu" width="400"/>
+  <img src="Vault-88/screenshots/difficulty-select.jpeg" alt="Gameplay" width="400"/>
   <br/>
-  <img src="screenshots/game-screen.jpeg" alt="Difficulty Selection" width="400"/>
-  <img src="screenshots/game-won.jpeg" alt="Statistics" width="400"/>
+  <img src="Vault-88/screenshots/game-screen.jpeg" alt="Difficulty Selection" width="400"/>
+  <img src="Vault-88/screenshots/game-won.jpeg" alt="Statistics" width="400"/>
   <br/>
-  <img src="screenshots/stats-screen.jpeg" alt="Stats" width="400"/>
+  <img src="Vault-88/screenshots/stats-screen.jpeg" alt="Stats" width="400"/>
 </div>
 
 ## Features
