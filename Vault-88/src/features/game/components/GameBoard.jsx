@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { useSound } from '../../../shared/hooks/useSound';
 import { useLanguage } from '../../../shared/hooks/useLanguage';
 import { DigitBox } from './DigitBox';
 import { HintRow } from './HintRow';
+import { NumberKeyboard } from './NumberKeyboard';
 import { formatTime } from '../utils/scoreCalculator';
 import '../Game.css';
 import '../Pause.css';
 
-export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode, digitFeedback }) {
+export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode, digitFeedback, eliminatedDigits, onToggleDigit }) {
   const { playUnlock, playWrong, playClick } = useSound();
   const { t } = useLanguage();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   const handleUnlock = () => {
     const result = onUnlock();
@@ -34,6 +37,11 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
   const handleRequestHint = () => {
     playClick();
     onRequestHint();
+  };
+
+  const handleToggleKeyboard = () => {
+    playClick();
+    setKeyboardVisible(!keyboardVisible);
   };
 
   return (
@@ -98,16 +106,35 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
             </div>
           </div>
 
-          {/* Hint Request Button */}
-          <button 
-            onClick={handleRequestHint} 
-            className="hint-request-button"
-            disabled={hintsUsed >= 2}
-          >
-            <span className="material-icons-round">lightbulb</span>
-            <span>{t('game.requestHint')} ({hintsUsed}/2)</span>
-            <span className="hint-cost">-25 {t('difficulty.points')}</span>
-          </button>
+          {/* Number Keyboard */}
+          <NumberKeyboard
+            eliminatedDigits={eliminatedDigits}
+            onToggleDigit={onToggleDigit}
+            isVisible={keyboardVisible}
+          />
+
+          {/* Button Row */}
+          <div className="button-row">
+            {/* Keyboard Toggle Button */}
+            <button 
+              onClick={handleToggleKeyboard}
+              className="keyboard-toggle-button"
+              aria-label="Toggle number keyboard"
+            >
+              <span className="material-icons-round">{keyboardVisible ? 'keyboard_hide' : 'dialpad'}</span>
+            </button>
+
+            {/* Hint Request Button */}
+            <button 
+              onClick={handleRequestHint} 
+              className="hint-request-button"
+              disabled={hintsUsed >= 2}
+            >
+              <span className="material-icons-round">lightbulb</span>
+              <span>{t('game.requestHint')} ({hintsUsed}/2)</span>
+              <span className="hint-cost">-25 {t('difficulty.points')}</span>
+            </button>
+          </div>
 
           {/* Unlock Button */}
           <button onClick={handleUnlock} className="unlock-button">

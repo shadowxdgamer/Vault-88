@@ -14,6 +14,7 @@ export function useGameLogic(digitCount = 3) {
   const [hintsUsed, setHintsUsed] = useState(0);
   const [attemptHistory, setAttemptHistory] = useState([]);
   const [digitFeedback, setDigitFeedback] = useState(() => Array(digitCount).fill(null));
+  const [eliminatedDigits, setEliminatedDigits] = useState(() => new Set());
 
   // Generate color feedback for an attempt
   const generateFeedback = (guess, secret) => {
@@ -61,6 +62,7 @@ export function useGameLogic(digitCount = 3) {
     setHintsUsed(0);
     setAttemptHistory([]);
     setDigitFeedback(Array(digitCount).fill(null));
+    setEliminatedDigits(new Set());
   }, [digitCount]);
 
   // Timer effect
@@ -94,6 +96,15 @@ export function useGameLogic(digitCount = 3) {
     
     // Apply feedback to current digit boxes
     setDigitFeedback(feedback);
+    
+    // Auto-eliminate wrong digits (red feedback)
+    const newEliminated = new Set(eliminatedDigits);
+    currentGuess.forEach((digit, idx) => {
+      if (feedback[idx] === 'wrong') {
+        newEliminated.add(digit);
+      }
+    });
+    setEliminatedDigits(newEliminated);
     
     // Clear feedback after 5 seconds
     setTimeout(() => {
@@ -145,6 +156,17 @@ export function useGameLogic(digitCount = 3) {
     setHintsUsed(0);
     setAttemptHistory([]);
     setDigitFeedback(Array(digitCount).fill(null));
+    setEliminatedDigits(new Set());
+  };
+
+  const toggleEliminatedDigit = (digit) => {
+    const newEliminated = new Set(eliminatedDigits);
+    if (newEliminated.has(digit)) {
+      newEliminated.delete(digit);
+    } else {
+      newEliminated.add(digit);
+    }
+    setEliminatedDigits(newEliminated);
   };
 
   return {
@@ -159,9 +181,11 @@ export function useGameLogic(digitCount = 3) {
     hintsUsed,
     attemptHistory,
     digitFeedback,
+    eliminatedDigits,
     changeDigit,
     checkCode,
     resetGame,
     revealHint,
+    toggleEliminatedDigit,
   };
 }

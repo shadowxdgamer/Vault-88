@@ -56,12 +56,20 @@
 /* Tablet */
 @media (min-width: 640px) {
   .game-container {
-    max-width: 28rem;
+    max-width: 32rem;
     height: auto;
     min-height: 600px;
     max-height: 90vh;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .game-container {
+    max-width: 36rem;
+    max-height: 85vh;
   }
 }
 
@@ -384,15 +392,53 @@
   margin-bottom: 0;
 }
 
+/* Button Row for Keyboard Toggle and Hint */
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Keyboard Toggle Button */
+.keyboard-toggle-button {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  color: var(--accent-cyan);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.keyboard-toggle-button:hover {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.25) 100%);
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+.keyboard-toggle-button:active {
+  transform: translateY(0);
+}
+
+.keyboard-toggle-button .material-icons-round {
+  font-size: 22px;
+}
+
 /* Hint Request Button */
 .hint-request-button {
-  width: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  margin-bottom: 1rem;
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: 12px;
