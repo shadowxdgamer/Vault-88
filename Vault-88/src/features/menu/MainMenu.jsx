@@ -110,7 +110,7 @@ export function MainMenu({ onNavigate }) {
         <div className="menu-footer">
           <div className="menu-footer-content">
             <span>SECURE CONNECTION ESTABLISHED</span>
-            <span>V 1.0.0</span>
+            <span>V 1.1.0</span>
           </div>
         </div>
 
