@@ -263,6 +263,72 @@
   font-family: 'Chakra Petch', monospace;
 }
 
+/* Feedback Glowing States - Blended smooth neon maintaining base styling */
+.digit-box.feedback-correct {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.4) 0%, rgba(22, 163, 74, 0.5) 100%), #e3d5ca;
+  border-radius: 0.75rem;
+  animation: glowCorrect 2.5s ease-in-out infinite alternate;
+}
+
+.digit-box.feedback-correct .digit-box-overlay {
+  background: linear-gradient(to bottom right, rgba(134, 239, 172, 0.3), transparent);
+}
+
+.digit-box.feedback-wrong-position {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.4) 0%, rgba(245, 158, 11, 0.5) 100%), #e3d5ca;
+  border-radius: 0.75rem;
+  animation: glowWrongPosition 2.5s ease-in-out infinite alternate;
+}
+
+.digit-box.feedback-wrong-position .digit-box-overlay {
+  background: linear-gradient(to bottom right, rgba(253, 230, 138, 0.3), transparent);
+}
+
+.digit-box.feedback-wrong {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.4) 0%, rgba(220, 38, 38, 0.5) 100%), #e3d5ca;
+  border-radius: 0.75rem;
+  animation: glowWrong 2.5s ease-in-out infinite alternate;
+}
+
+.digit-box.feedback-wrong .digit-box-overlay {
+  background: linear-gradient(to bottom right, rgba(252, 165, 165, 0.3), transparent);
+}
+
+.digit-box.feedback-correct .digit-value,
+.digit-box.feedback-wrong-position .digit-value,
+.digit-box.feedback-wrong .digit-value {
+  color: #8B5E3C;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Smooth breathing glow animations */
+@keyframes glowCorrect {
+  0% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 15px rgba(34, 197, 94, 0.3), 0 0 30px rgba(34, 197, 94, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 25px rgba(34, 197, 94, 0.45), 0 0 50px rgba(34, 197, 94, 0.25), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes glowWrongPosition {
+  0% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 15px rgba(251, 191, 36, 0.3), 0 0 30px rgba(251, 191, 36, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 25px rgba(251, 191, 36, 0.45), 0 0 50px rgba(251, 191, 36, 0.25), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes glowWrong {
+  0% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 15px rgba(239, 68, 68, 0.3), 0 0 30px rgba(239, 68, 68, 0.15), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 6px 0 #a89f91, 0 0 25px rgba(239, 68, 68, 0.45), 0 0 50px rgba(239, 68, 68, 0.25), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+}
+
 .hints-panel {
   border-radius: 1rem;
   padding: 0.25rem;

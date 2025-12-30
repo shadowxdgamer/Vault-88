@@ -6,7 +6,7 @@ import { formatTime } from '../utils/scoreCalculator';
 import '../Game.css';
 import '../Pause.css';
 
-export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode }) {
+export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, message, isWon, onBack, onPause, score, time, revealedDigits, hintsUsed, onRequestHint, secretCode, digitFeedback }) {
   const { playUnlock, playWrong, playClick } = useSound();
   const { t } = useLanguage();
 
@@ -84,6 +84,7 @@ export function GameBoard({ currentGuess, hints, onDigitChange, onUnlock, messag
                 onClick={() => onDigitChange(idx)}
                 isRevealed={revealedDigits.includes(idx)}
                 revealedValue={secretCode?.[idx]}
+                feedback={digitFeedback?.[idx]}
               />
             ))}
           </div>

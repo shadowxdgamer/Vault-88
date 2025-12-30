@@ -12,6 +12,39 @@ export function useGameLogic(digitCount = 3) {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [revealedDigits, setRevealedDigits] = useState([]);
   const [hintsUsed, setHintsUsed] = useState(0);
+  const [attemptHistory, setAttemptHistory] = useState([]);
+  const [digitFeedback, setDigitFeedback] = useState(() => Array(digitCount).fill(null));
+
+  // Generate color feedback for an attempt
+  const generateFeedback = (guess, secret) => {
+    const feedback = Array(guess.length).fill(null);
+    const secretCopy = [...secret];
+    const guessCopy = [...guess];
+
+    // First pass: Mark correct positions (green)
+    for (let i = 0; i < guess.length; i++) {
+      if (guessCopy[i] === secretCopy[i]) {
+        feedback[i] = 'correct';
+        secretCopy[i] = null;
+        guessCopy[i] = null;
+      }
+    }
+
+    // Second pass: Mark wrong positions (yellow) and wrong digits (red)
+    for (let i = 0; i < guess.length; i++) {
+      if (feedback[i] === null) {
+        const indexInSecret = secretCopy.indexOf(guessCopy[i]);
+        if (indexInSecret !== -1) {
+          feedback[i] = 'wrong-position';
+          secretCopy[indexInSecret] = null;
+        } else {
+          feedback[i] = 'wrong';
+        }
+      }
+    }
+
+    return feedback;
+  };
 
   // Update game when digit count changes
   useEffect(() => {
@@ -26,6 +59,8 @@ export function useGameLogic(digitCount = 3) {
     setElapsedTime(0);
     setRevealedDigits([]);
     setHintsUsed(0);
+    setAttemptHistory([]);
+    setDigitFeedback(Array(digitCount).fill(null));
   }, [digitCount]);
 
   // Timer effect
@@ -47,6 +82,23 @@ export function useGameLogic(digitCount = 3) {
 
   const checkCode = () => {
     setAttempts(attempts + 1);
+    
+    // Generate feedback for this attempt
+    const feedback = generateFeedback(currentGuess, secretCode);
+    
+    // Add to history
+    setAttemptHistory([...attemptHistory, {
+      digits: [...currentGuess],
+      feedback: feedback
+    }]);
+    
+    // Apply feedback to current digit boxes
+    setDigitFeedback(feedback);
+    
+    // Clear feedback after 5 seconds
+    setTimeout(() => {
+      setDigitFeedback(Array(digitCount).fill(null));
+    }, 5000);
     
     if (currentGuess.join('') === secretCode.join('')) {
       setIsWon(true);
@@ -91,6 +143,8 @@ export function useGameLogic(digitCount = 3) {
     setElapsedTime(0);
     setRevealedDigits([]);
     setHintsUsed(0);
+    setAttemptHistory([]);
+    setDigitFeedback(Array(digitCount).fill(null));
   };
 
   return {
@@ -103,6 +157,8 @@ export function useGameLogic(digitCount = 3) {
     elapsedTime,
     revealedDigits,
     hintsUsed,
+    attemptHistory,
+    digitFeedback,
     changeDigit,
     checkCode,
     resetGame,

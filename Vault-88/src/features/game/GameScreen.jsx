@@ -13,7 +13,7 @@ export function GameScreen({ onExit, difficulty }) {
   const { t } = useLanguage();
   const digitCount = MODE_CONFIG[difficulty].digits;
   const baseScore = MODE_CONFIG[difficulty].baseScore;
-  const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, revealedDigits, hintsUsed, secretCode, changeDigit, checkCode, resetGame, revealHint } = useGameLogic(digitCount);
+  const { currentGuess, hints, isWon, wrongAttempts, elapsedTime, revealedDigits, hintsUsed, secretCode, attemptHistory, digitFeedback, changeDigit, checkCode, resetGame, revealHint } = useGameLogic(digitCount);
   const [message, setMessage] = useState('');
   const [showWinModal, setShowWinModal] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -107,6 +107,7 @@ export function GameScreen({ onExit, difficulty }) {
         hintsUsed={hintsUsed}
         onRequestHint={handleRequestHint}
         secretCode={secretCode}
+        digitFeedback={digitFeedback}
       />
 
       {/* Pause Menu */}
