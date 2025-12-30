@@ -5,25 +5,34 @@ Vault 88 is a premium "Cyber-Rustic" logic puzzle game. It combines the tactile 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="Vault-88/screenshots/homepage.jpeg" alt="Main Menu" width="400"/>
-  <img src="Vault-88/screenshots/difficulty-select.jpeg" alt="Gameplay" width="400"/>
+  <img src="screenshots/homepage.jpeg" alt="Main Menu" width="400"/>
+  <img src="screenshots/difficulty-select.jpeg" alt="Gameplay" width="400"/>
   <br/>
-  <img src="Vault-88/screenshots/game-screen.jpeg" alt="Difficulty Selection" width="400"/>
-  <img src="Vault-88/screenshots/game-won.jpeg" alt="Statistics" width="400"/>
+  <img src="screenshots/game-screen.jpeg" alt="Difficulty Selection" width="400"/>
+  <img src="screenshots/game-won.jpeg" alt="Statistics" width="400"/>
   <br/>
-  <img src="Vault-88/screenshots/stats-screen.jpeg" alt="Stats" width="400"/>
+  <img src="screenshots/stats-screen.jpeg" alt="Stats" width="400"/>
 </div>
 
 ## Features
 
 - **Three Difficulty Levels**: Easy (3 digits), Medium (4 digits), Hard (5 digits)
+- **Visual Feedback System**: Wordle-inspired color-coded hints on each attempt
+  - 🟢 Green glow: Correct digit in correct position
+  - 🟡 Yellow glow: Correct digit in wrong position
+  - 🔴 Red glow: Wrong digit (not in code)
+- **Number Elimination Keyboard**: Toggle keypad to track which digits are ruled out
+  - Auto-eliminates wrong digits after each attempt
+  - Manual toggle for strategic planning
+  - Collapsible interface for clean gameplay
 - **Smart Hint System**: Request contextual hints to guide your solving (max 2 per game)
 - **Dynamic Scoring**: Score based on time, wrong attempts, hints used, and perfection
 - **Progression Tracking**: Track games played, wins, streaks, and performance per difficulty
 - **High Scores**: Personal best scores saved for each difficulty level
-- **Immersive Audio**: Background music and sound effects for full engagement
+- **Immersive Audio**: Background music and sound effects with volume controls
 - **Bilingual Support**: Full English and Arabic (العربية) language support with RTL layout
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Atmospheric Design**: Cyber-rustic aesthetic with smooth animations and glowing effects
 
 ## Roadmap
 

@@ -1,6 +1,6 @@
 import { useSound } from '../../../shared/hooks/useSound';
 
-export function DigitBox({ value, onClick, isRevealed, revealedValue }) {
+export function DigitBox({ value, onClick, isRevealed, revealedValue, feedback }) {
   const { playClick } = useSound();
 
   const handleClick = () => {
@@ -9,7 +9,7 @@ export function DigitBox({ value, onClick, isRevealed, revealedValue }) {
   };
 
   return (
-    <div onClick={handleClick} className={`digit-box wood-shadow ${isRevealed ? 'revealed' : ''}`}>
+    <div onClick={handleClick} className={`digit-box wood-shadow ${isRevealed ? 'revealed' : ''} ${feedback ? `feedback-${feedback}` : ''}`}>
       <div className="digit-box-overlay"></div>
       <span className="digit-value">{value}</span>
       {isRevealed && (
