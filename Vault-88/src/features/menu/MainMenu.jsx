@@ -5,8 +5,8 @@ import { useLanguage } from '../../shared/hooks/useLanguage';
 import './Menu.css';
 
 export function MainMenu({ onNavigate }) {
-  const { ensureBgMusicPlaying } = useSound();
-  const { t } = useLanguage();
+  const { ensureBgMusicPlaying, playClick } = useSound();
+  const { t, language, setLanguage } = useLanguage();
 
   const handleNavigation = (screen) => {
     // Ensure background music starts on first user interaction
@@ -48,6 +48,28 @@ export function MainMenu({ onNavigate }) {
             <div className="menu-subtitle-line"></div>
             <p className="menu-subtitle">{t('mainMenu.subtitle')}</p>
             <div className="menu-subtitle-line"></div>
+          </div>
+          {/* Language Toggle */}
+          <div className="language-toggle">
+            <button 
+              className={`language-option ${language === 'en' ? 'active' : ''}`}
+              onClick={() => {
+                playClick();
+                setLanguage('en');
+              }}
+            >
+              EN
+            </button>
+            <span className="language-separator">/</span>
+            <button 
+              className={`language-option ${language === 'ar' ? 'active' : ''}`}
+              onClick={() => {
+                playClick();
+                setLanguage('ar');
+              }}
+            >
+              AR
+            </button>
           </div>
         </header>
 

@@ -184,6 +184,50 @@
   }
 }
 
+/* Language Toggle */
+.language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+.language-option {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.language-option:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.language-option.active {
+  color: var(--accent-cyan);
+  background-color: rgba(56, 189, 248, 0.15);
+  font-weight: bold;
+}
+
+.language-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.875rem;
+  user-select: none;
+}
+
 .menu-main {
   flex: 1;
   display: flex;
