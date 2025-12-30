@@ -6,6 +6,7 @@ import { GameScreen } from './features/game/GameScreen';
 import { DifficultySelector } from './features/difficulty/DifficultySelector';
 import { SettingsScreen } from './features/settings/SettingsScreen';
 import { StatsScreen } from './features/stats/StatsScreen';
+import { RoadmapScreen } from './features/roadmap/RoadmapScreen';
 import { Placeholder } from './shared/components/Placeholder';
 import { GAME_MODES } from './shared/utils/constants';
 import './App.css';
@@ -37,6 +38,8 @@ function AppContent() {
         );
       case 'leaderboard':
         return <StatsScreen onBack={() => setCurrentScreen('menu')} />;
+      case 'roadmap':
+        return <RoadmapScreen onBack={() => setCurrentScreen('menu')} />;
       case 'settings':
         return <SettingsScreen onBack={() => setCurrentScreen('menu')} />;
       default:

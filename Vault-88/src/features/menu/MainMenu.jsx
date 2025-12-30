@@ -16,8 +16,6 @@ export function MainMenu({ onNavigate }) {
       window.open('https://buymeacoffee.com/shadowxdgamer', '_blank');
     } else if (screen === 'source') {
       window.open('https://github.com/shadowxdgamer/Vault-88', '_blank');
-    } else if (screen === 'roadmap') {
-      window.open('https://github.com/shadowxdgamer/Vault-88#roadmap', '_blank');
     } else {
       onNavigate(screen);
     }
