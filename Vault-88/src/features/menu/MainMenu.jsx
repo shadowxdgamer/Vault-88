@@ -75,7 +75,7 @@ export function MainMenu({ onNavigate }) {
 
         {/* Main Menu */}
         <main className="menu-main">
-          <PlayButton onClick={() => onNavigate('difficulty')} />
+          <PlayButton onClick={() => handleNavigation('difficulty')} />
 
           <div className="menu-buttons">
             <MenuButton
